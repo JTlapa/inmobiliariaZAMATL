@@ -1,0 +1,107 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    background: linear-gradient(to right, #3399FF, #02B502);
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    height: 100px;
+    top: 10px;
+    left: 10px;
+}
+.header h1 {
+    width: 10%;
+}
+
+.busqueda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.busqueda label {
+    margin: 50px 0 20px 0;
+    color: white;
+    font-size: 20px;
+}
+
+.busqueda h1 {
+    font-size: 28px;
+    color: white;
+}
+
+.busqueda nav {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.busqueda nav * {
+    margin: 0 50px;
+}
+
+.busqueda nav select {
+    width: 180px;
+    height: 30px;
+    border-radius: 20px;
+    transition: 400ms;
+}
+
+.busqueda nav select:hover {
+    transform:  scale(1.1);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: auto;
+    height: 2px;
+    border-radius: 5px;
+    background: #ddd;
+}
+
+.busqueda input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: #1a64ae;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3498db;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.busqueda nav input[type="range"],
+.busqueda select {
+    margin-top: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+.busqueda button {
+    margin-top: 30px;
+    background-color: #3399FF;
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+    color: white;
+    transition: background-color 0.4s;
+}
+
+.busqueda button:hover {
+    cursor: pointer;
+    background-color: #1a64ae;
+}

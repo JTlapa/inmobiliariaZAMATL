@@ -1,7 +1,6 @@
 <?php
 
-
-class UserDAO {
+class AccountDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
@@ -9,18 +8,21 @@ class UserDAO {
         $this->connection = new Connection();
     }
 
-    public function getTypeUserById($id) {
-        $query = "SELECT tipousuario FROM usuario where idUsuario= ?";
+    public function getUserIdByAccount($account) {
+        $query = "SELECT idUsuario FROM cuentaAcceso WHERE username = ? AND clave= sha2( ? , 256)";
         $mysqli = $this->connection->getConnection();
-        $result = "null";
+        $result = -1;
+
+        $username = $account->getUser();
+        $password = $account->getPassword();
 
         if($statement = $mysqli->prepare($query)) {
-            $statement->bind_param("i", $id);
+            $statement->bind_param("ss", $username, $password);
             $statement->execute();
             
-            $statement->bind_result($typeUser);
+            $statement->bind_result($idUsuario);
             while ($statement->fetch()) {
-                $result = $typeUser;
+                $result = $idUsuario;
             }
             $statement->close();
         } else {
@@ -31,4 +33,5 @@ class UserDAO {
         return $result;
     }
 }
+
 ?>

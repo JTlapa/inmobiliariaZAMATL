@@ -1,24 +1,32 @@
 <?php
 session_start();
 
-require_once './../../dataaccess/Connection.php';
-require_once '../../logic/domain/User.php';
-require_once './../../logic/DAO/UserDAO.php';
+require './../../dataaccess/Connection.php';
+require '../../logic/domain/Account.php';
+require './../../logic/DAO/AccountDAO.php';
+require '../../logic/domain/User.php';
+require './../../logic/DAO/UserDAO.php';
 
 $username = $_POST["username"];
 $password = $_POST['password'];
 
-$user = new User();
-$user->setUser($username);
-$user->setPassword($password);
+$account = new Account();
+$account->setUser($username);
+$account->setPassword($password);
 
+$accountDAO = new AccountDAO();
+$userId = $accountDAO->getUserIdByAccount($account);
 $userDAO = new UserDAO();
-$userId = $userDAO->getUserIdByUser($user);
 
 if($userId != -1) {
+    $typeUser = $userDAO->getTypeUserById($userId);
+
+    $_SESSION['typeUser'] = $typeUser;
     $_SESSION['userId'] = $userId;
-    $_SESSION['user'] = $username;
-    header("Location: ./../views/MenuPrincipal.html"); 
+    if($typeUser == "Cliente") {
+        header("Location: ./../views/MenuPrincipalCliente.php"); 
+    }
+    
 }else {
     
     header("Location: ./../"); 

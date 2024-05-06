@@ -25,6 +25,8 @@ if($userId != -1) {
     $_SESSION['userId'] = $userId;
     if($typeUser == "Cliente") {
         header("Location: ./../views/MenuPrincipalCliente.php"); 
+    } elseif ($typeUser == "Agente") {
+        header("Location: ./../views/MenuPrincipalAgente.php"); 
     }
     
 }else {

@@ -21,7 +21,7 @@ class UserDAO {
 
             $statement->bind_param("ssss", $name, $lastname, $email, $typeUser);
             if ($statement->execute()) {
-                $result = 1;
+                $result = $mysqli->insert_id;
             }
             $statement->close();
         } else {

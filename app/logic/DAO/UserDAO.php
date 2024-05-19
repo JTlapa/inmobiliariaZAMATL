@@ -20,8 +20,8 @@ class UserDAO {
             $typeUser = $user->getTypeUser();
 
             $statement->bind_param("ssss", $name, $lastname, $email, $typeUser);
-            if ($statement->execute();) {
-                $result = 1;
+            if ($statement->execute()) {
+                $result = $mysqli->insert_id;
             }
             $statement->close();
         } else {

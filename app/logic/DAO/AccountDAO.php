@@ -18,7 +18,7 @@ class AccountDAO {
             $password = $account->getPassword();
 
             $statement->bind_param("iss", $id, $username, $password);
-            if ($statement->execute();) {
+            if ($statement->execute()) {
                 $result = 1;
             }
             $statement->close();

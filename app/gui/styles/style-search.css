@@ -1,0 +1,9 @@
+body {
+    background: linear-gradient(to right, #3399FF, #02B502);
+}
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    align-items: left;
+    text-align: center;
+}

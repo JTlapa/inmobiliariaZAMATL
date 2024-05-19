@@ -18,6 +18,8 @@ $accountDAO = new AccountDAO();
 $userId = $accountDAO->getUserIdByAccount($account);
 $userDAO = new UserDAO();
 
+echo($userId);
+
 if($userId != -1) {
     $typeUser = $userDAO->getTypeUserById($userId);
 

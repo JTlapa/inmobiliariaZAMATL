@@ -20,7 +20,7 @@ class UserDAO {
             $typeUser = $user->getTypeUser();
 
             $statement->bind_param("ssss", $name, $lastname, $email, $typeUser);
-            if ($statement->execute();) {
+            if ($statement->execute()) {
                 $result = 1;
             }
             $statement->close();

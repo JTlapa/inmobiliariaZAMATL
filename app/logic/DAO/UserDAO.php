@@ -1,6 +1,4 @@
 <?php
-
-
 class UserDAO {
     private $connection = NULL;
     private $mysqli = NULL;
@@ -53,4 +51,5 @@ class UserDAO {
         return $result;
     }
 }
+
 ?>

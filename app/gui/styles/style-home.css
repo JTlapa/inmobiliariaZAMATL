@@ -1,5 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -16,9 +18,6 @@ header {
     top: 10px;
     left: 10px;
 }
-.header h1 {
-    width: 10%;
-}
 
 .busqueda {
     display: flex;
@@ -27,50 +26,57 @@ header {
     justify-content: center;
     text-align: center;
     height: 100%;
+    padding: 20px;
 }
 
-.busqueda label {
-    margin: 50px 0 20px 0;
+.busqueda h1 {
+    margin-bottom: 40px;
+}
+
+.selections label {
+    margin-bottom: 20px;
+}
+
+label {
+    margin: 10px 0;
     color: white;
     font-size: 20px;
 }
 
-.busqueda h1 {
+h1 {
     font-size: 28px;
     color: white;
 }
 
-.busqueda nav {
+.radio {
+    margin-top: 20px;
+}
+
+nav {
     display: flex;
     margin-top: 20px;
     justify-content: center;
 }
 
-.busqueda nav * {
-    margin: 0 50px;
-}
-
-.busqueda nav select {
+select {
     width: 180px;
     height: 30px;
     border-radius: 20px;
     transition: 400ms;
 }
 
-.busqueda nav select:hover {
+select:hover {
     transform:  scale(1.1);
 }
 
 input[type="range"] {
     -webkit-appearance: none;
-    width: auto;
+    width: 50%;
     height: 2px;
     border-radius: 5px;
     background: #ddd;
-}
-
-.busqueda input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: #1a64ae;
+    display: block;
+    margin: 0 auto;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -83,16 +89,20 @@ input[type="range"]::-webkit-slider-thumb {
     transition: 400ms;
 }
 
-.busqueda nav input[type="range"],
-.busqueda select {
-    margin-top: 10px;
+input[type="range"]:hover::-webkit-slider-thumb {
+    background-color: #1a64ae;
+}
+
+nav input[type="range"],
+select {
+    margin: 10px 10px;
     cursor: pointer;
     border: 1px solid black;
     overflow: hidden;
 }
 
-.busqueda button {
-    margin-top: 30px;
+button {
+    margin-top: 20px;
     background-color: #3399FF;
     border-radius: 5px;
     width: 150px;
@@ -101,7 +111,7 @@ input[type="range"]::-webkit-slider-thumb {
     transition: background-color 0.4s;
 }
 
-.busqueda button:hover {
+button:hover {
     cursor: pointer;
     background-color: #1a64ae;
 }

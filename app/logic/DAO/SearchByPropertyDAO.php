@@ -1,12 +1,11 @@
 <?php
-require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/dataaccess/Connection.php';
 
 class SearchByPropertyDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
-    public function __construct() {
-        $this->connection = new Connection();
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
 
     public function insertSearchByProperty($searchByProperty) {

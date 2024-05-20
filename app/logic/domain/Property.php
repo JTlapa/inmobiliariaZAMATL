@@ -9,7 +9,6 @@ class Property {
     private $name = NULL;
     private $numberRooms = NULL;
     private $groundMeasurements = NULL;
-    private $image = NULL;
     private $status = NULL;
     private $description = NULL;
 
@@ -75,14 +74,6 @@ class Property {
 
     public function setGroundMeasurements($groundMeasurements) {
         $this->groundMeasurements = $groundMeasurements;
-    }
-
-    public function getImage() {
-        return $this->image;
-    }
-
-    public function setImage($image) {
-        $this->image = $image;
     }
 
     public function getStatus() {

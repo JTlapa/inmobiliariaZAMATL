@@ -1,0 +1,77 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to right, #3399FF, #02B502);
+}
+
+header h1 {
+    font-size: 50px;
+    color: white;
+    margin: 50px 0 0 30px;
+}
+
+header img {
+    position: absolute;
+    height: 200px;
+    top: 10px;
+    right: 10px;
+}
+
+main form {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0 0 50px;
+}
+
+.form-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+aside, .derecha {
+    flex: 1;
+    margin: 0 20px;
+}
+
+input {
+    width: 50%;
+    height: 30px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+label, input[type="text"], input[type="email"] {
+    display: block;
+}
+
+label {
+    font-size: 30px;
+}
+
+button {
+    height: 40px;
+    width: 150px;
+    color: white;
+    cursor: pointer;
+    margin: 0 150px 0 0;
+    border-radius: 10px;
+    transition: 400ms;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin: 200px 0;
+}
+
+button[type="submit"] {
+    background-color: #3399FF;
+}
+
+button[type="button"] {
+    background-color: red;
+}

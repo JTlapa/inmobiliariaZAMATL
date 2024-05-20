@@ -1,12 +1,12 @@
 <?php
-require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/dataaccess/Connection.php';
+require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/logic/domain/Property.php';
 
 class PropertyDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
-    public function __construct() {
-        $this->connection = new Connection();
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
 
     public function insertProperty($property) {
@@ -14,17 +14,17 @@ class PropertyDAO {
         $mysqli = $this->connection->getConnection();
         $result = -1;
     
-        if($statement = $mysqli->prepare($query)) {
+        if ($statement = $mysqli->prepare($query)) {
             $idProperty = $property->getidProperty();
             $idAgent = $property->getidAgent();
             $idOwner = $property->getidOwner();
             $price = $property->getPrice();
-            $ubication = $property->getubication();
-            $name = $property->getname();
-            $numberRooms = $property->getnumberRooms();
-            $groundMeasurements = $property->getgroundMeasurements();
-            $status = $property->getstatus();
-            $description = $property->getdescription();
+            $ubication = $property->getUbication();
+            $name = $property->getName();
+            $numberRooms = $property->getNumberRooms();
+            $groundMeasurements = $property->getGroundMeasurements();
+            $status = $property->getStatus();
+            $description = $property->getDescription();
     
             $statement->bind_param("iiissidssd", $idProperty, $idAgent, $idOwner, $ubication, $name, $numberRooms, $groundMeasurements, $status, $description, $price);
             
@@ -33,7 +33,7 @@ class PropertyDAO {
             }
             $statement->close();
         } else {
-            echo "Error";
+            echo "Error: " . $mysqli->error;
         }
     
         $this->connection->closeConnection();
@@ -41,24 +41,41 @@ class PropertyDAO {
     }
 
     public function getPropertiesFromSearchCriteria($search) {
-        $query = "SELECT * FROM Propiedad WHERE (precioRenta <= ? OR precioVenta <= ?) AND ubicacion = ? AND numHabitaciones = ?";
+        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ubicacion = ? AND numHabitaciones <= ? AND estatus = ?";
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
         $precio = $search->getPrice();
         $ubicacion = $search->getUbication();
         $numHabitaciones = $search->getNumberRooms();
+        $estatus = $search->getSearchType();
     
-        $statement = $mysqli->prepare($query);
-        $statement->bind_param("iiss", $precio, $precio, $ubicacion, $numHabitaciones);
-        $statement->execute();
-        $result = $statement->get_result();
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("dsss", $precio, $ubicacion, $numHabitaciones, $estatus);
+            $statement->execute();
+            $result = $statement->get_result();
     
-        while($row = $result->fetch_assoc()) {
-            $properties[] = $row;
+            while ($row = $result->fetch_assoc()) {
+                $property = new Property();
+                $property->setIdProperty($row['idPropiedad']);
+                $property->setIdAgent($row['idAgente']);
+                $property->setIdOwner($row['idPropietario']);
+                $property->setPrice($row['precio']);
+                $property->setUbication($row['ubicacion']);
+                $property->setName($row['nombre']);
+                $property->setNumberRooms($row['numHabitaciones']);
+                $property->setGroundMeasurements($row['medidasTerreno']);
+                $property->setStatus($row['estatus']);
+                $property->setDescription($row['descripcion']);
+    
+                $properties[] = $property;
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
         }
     
-        $statement->close();
         $mysqli->close();
     
         return $properties;
@@ -66,74 +83,93 @@ class PropertyDAO {
     
 
     public function getPropertiesFromClientPreferences($client) {
-        $query = "SELECT * FROM Propiedad WHERE (precioRenta <= ? OR precioVenta <= ?) AND ubicacion = ? AND numHabitaciones = ?";
+        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ubicacion = ? AND numHabitaciones <= ? AND estatus = ?";
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
-        $preferredRentalPrice = $client->getPreferredRentalPrice();
-        $preferredSellPrice = $client->getPreferredSellPrice();
+        $preferredPrice = $client->getPreferredPrice();
         $preferredUbication = $client->getPreferredUbication();
         $preferredNumberRooms = $client->getPreferredNumberRooms();
+        $preferredStatus = $client->getPreferredStatus();
     
-        $statement = $mysqli->prepare($query);
-        $statement->bind_param("iiss", $preferredRentalPrice, $preferredSellPrice, $preferredUbication, $preferredNumberRooms);
-        $statement->execute();
-        $result = $statement->get_result();
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("isss", $preferredPrice, $preferredUbication, $preferredNumberRooms, $preferredStatus);
+            $statement->execute();
+            $result = $statement->get_result();
     
-        while($row = $result->fetch_assoc()) {
-            $properties[] = $row;
+            while ($row = $result->fetch_assoc()) {
+                $property = new Property();
+                $property->setIdProperty($row['idPropiedad']);
+                $property->setIdAgent($row['idAgente']);
+                $property->setIdOwner($row['idPropietario']);
+                $property->setPrice($row['precio']);
+                $property->setUbication($row['ubicacion']);
+                $property->setName($row['nombre']);
+                $property->setNumberRooms($row['numHabitaciones']);
+                $property->setGroundMeasurements($row['medidasTerreno']);
+                $property->setStatus($row['estatus']);
+                $property->setDescription($row['descripcion']);
+    
+                $properties[] = $property;
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
         }
     
-        $statement->close();
         $mysqli->close();
     
         return $properties;
     }
-    
 
     public function getMaxPrice() {
-        $query = "SELECT GREATEST(MAX(precioRenta), MAX(precioVenta)) AS max_price FROM Propiedad";
+        $query = "SELECT MAX(precio) AS max_price FROM Propiedad";
         $mysqli = $this->connection->getConnection();
         $maxPrice = 0;
     
-        $result = $mysqli->query($query);
-    
-        if ($row = $result->fetch_assoc()) {
-            $maxPrice = $row['max_price'];
+        if ($result = $mysqli->query($query)) {
+            if ($row = $result->fetch_assoc()) {
+                $maxPrice = $row['max_price'];
+            }
+        } else {
+            echo "Error: " . $mysqli->error;
         }
     
         $mysqli->close();
     
         return $maxPrice;
     }
-    
 
     public function getMaxRooms() {
         $query = "SELECT MAX(numHabitaciones) AS max_rooms FROM Propiedad";
         $mysqli = $this->connection->getConnection();
         $maxRooms = 0;
     
-        $result = $mysqli->query($query);
-    
-        if ($row = $result->fetch_assoc()) {
-            $maxRooms = $row['max_rooms'];
+        if ($result = $mysqli->query($query)) {
+            if ($row = $result->fetch_assoc()) {
+                $maxRooms = $row['max_rooms'];
+            }
+        } else {
+            echo "Error: " . $mysqli->error;
         }
     
         $mysqli->close();
     
         return $maxRooms;
     }
-    
 
     public function getAllUbications() {
         $query = "SELECT DISTINCT ubicacion FROM Propiedad";
         $mysqli = $this->connection->getConnection();
         $ubications = array();
 
-        $result = $mysqli->query($query);
-
-        while($row = $result->fetch_assoc()) {
-            $ubications[] = $row['ubicacion'];
+        if ($result = $mysqli->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $ubications[] = $row['ubicacion'];
+            }
+        } else {
+            echo "Error: " . $mysqli->error;
         }
 
         $mysqli->close();
@@ -141,24 +177,22 @@ class PropertyDAO {
         return $ubications;
     }
 
-
     public function getAllSizes() {
         $query = "SELECT DISTINCT medidasTerreno FROM Propiedad";
         $mysqli = $this->connection->getConnection();
         $sizes = array();
     
-        $result = $mysqli->query($query);
-    
-        while($row = $result->fetch_assoc()) {
-            $sizes[] = $row['medidasTerreno'];
+        if ($result = $mysqli->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $sizes[] = $row['medidasTerreno'];
+            }
+        } else {
+            echo "Error: " . $mysqli->error;
         }
     
         $mysqli->close();
     
         return $sizes;
     }
-    
-    
 }
-
 ?>

@@ -1,12 +1,11 @@
 <?php
-require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/dataaccess/Connection.php';
 
 class SearchDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
-    public function __construct() {
-        $this->connection = new Connection();
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
 
     public function insertSearch($search) {
@@ -25,7 +24,7 @@ class SearchDAO {
             $statement->bind_param("idsiss", $idUser, $price, $ubication, $numberRooms, $date, $searchType);
 
             if($statement->execute()) {
-                $result = 1;
+                $result = $mysqli->insert_id;
             }
             $statement->close();
         } else {

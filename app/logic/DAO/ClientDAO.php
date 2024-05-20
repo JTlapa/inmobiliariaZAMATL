@@ -1,12 +1,12 @@
 <?php
-require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/dataaccess/Connection.php';
+require_once '../../logic/domain/Client.php';
 
 class ClientDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
-    public function __construct() {
-        $this->connection = new Connection();
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
 
     public function insertClient($client) {
@@ -32,6 +32,33 @@ class ClientDAO {
 
         $this->connection->closeConnection();
         return $result;
+    }
+
+    public function getClienteById($idClient) {
+        $query = "SELECT * FROM Cliente WHERE idUsuario = ?";
+        $mysqli = $this->connection->getConnection();
+        $client = new Client;
+
+        if($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("i", $idClient);
+            $statement->execute();
+            $result = $statement->get_result();
+
+            while($row = $result->fetch_assoc()) {
+                $client->setUserId($row['idUsuario']);
+                $client->setPreferredUbication($row['ubicacionPref']);
+                $client->setPreferredNumberRooms($row['numHabitacionesPref']);
+                $client->setPreferredPrice($row['precioPref']);
+                $client->setPreferredStatus($row['estatusPref']);
+            }
+
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+
+        $mysqli->close();
+        return $client;
     }
 }
 ?>

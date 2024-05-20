@@ -1,9 +1,75 @@
 body {
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to right, #3399FF, #02B502);
+    margin: 0;
+    padding: 0;
 }
-header h1 {
-    font-size: 24px;
-    font-weight: bold;
-    align-items: left;
+
+header {
     text-align: center;
+    margin-top: 20px;
+}
+
+header h1 {
+    font-size: 40px;
+    color: white;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.property-panel {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 20px;
+    padding: 20px;
+    width: 900px;
+    box-sizing: border-box;
+}
+
+.property-panel h2 {
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+.property-panel p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.property-panel .price {
+    font-weight: bold;
+    color: #02B502;
+    font-size: 22px;
+}
+
+.logo {
+    position: absolute;
+    height: 150px;
+    top: 10px;
+    right: 10px;
+}
+footer {
+    position: fixed;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+footer button {
+    width: 200px;
+    background-color: red;
+    height: 40px;
+    border-radius: 20px;
+    transition: 400ms;
+}
+
+button:hover {
+    transform: scale(1.1);
 }

@@ -20,7 +20,7 @@
                 <input type="password" name="password" id="password">
                 <button type="submit">Iniciar sesión</button>
             </form>
-            <p>¿No tienes cuenta? <a href="createAccount.html">Crea una</a></p>
+            <p>¿No tienes cuenta? <a href="../gui/views/RegisterUser.php">Crea una</a></p>
         </div>
     </main>
 </body>

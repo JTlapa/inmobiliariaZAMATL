@@ -28,6 +28,12 @@ $tamanios = $propertyDAO->getAllSizes();
 $maxPrice = $propertyDAO->getMaxPrice();
 $maxRooms = $propertyDAO->getMaxRooms();
 
+// Recuperar las propiedades según las preferencias del cliente
+$client = $clientDAO->getClienteById($_SESSION['userId']);
+if($client->getUserId() !== null) {
+    $properties = $propertyDAO->getPropertiesFromClientPreferences($client);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = isset($_POST['sliderPrice']) ? $_POST['sliderPrice'] : null;
     $habitaciones = isset($_POST['sliderRooms']) ? $_POST['sliderRooms'] : null;
@@ -56,32 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $searchByPropertyDAO->insertSearchByProperty($searchByProperty);
             }
         }
-    } else {
-        $client = $clientDAO->getClienteById($_SESSION['userId']);
-        if($client->getUserId() !== null) {
-            $search = new Search();
-            $search->setIdUser($_SESSION['userId']);
-            $search->setPrice($client->getPreferredPrice());
-            $search->setNumberRooms($client->getPreferredNumberRooms());
-            $search->setUbication($client->getPreferredUbication());
-            $search->setSearchType($client->getPreferredStatus());
-            $search->setDate(date("Y-m-d"));
-            $properties = $propertyDAO->getPropertiesFromClientPreferences($client);
-            $idSearch = $searchDAO->insertSearch($search);
-    
-            if ($idSearch !== -1) {
-                foreach ($properties as $property) {
-                    $searchByProperty = new SearchByProperty();
-                    $searchByProperty->setIdSearch($idSearch);
-                    $searchByProperty->setIdProperty($property->getIdProperty());
-    
-                    $searchByPropertyDAO->insertSearchByProperty($searchByProperty);
-                }
-            }
-        }
     }
 
     header("Location: ../views/Search.php?properties=" . urlencode(serialize($properties)));
     exit();
 }
 ?>
+

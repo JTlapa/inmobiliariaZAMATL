@@ -66,7 +66,7 @@ select {
 }
 
 select:hover {
-    transform:  scale(1.1);
+    transform: scale(1.1);
 }
 
 input[type="range"] {
@@ -114,4 +114,58 @@ button {
 button:hover {
     cursor: pointer;
     background-color: #1a64ae;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.property-container h1 {
+    font-size: 30px;
+    margin: 10px 0 10px;
+    text-align: center;
+    color: black;
+}
+
+.property-container h2 {
+    font-size: 30px;
+    margin: 0 0 10px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.property-panel {
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    padding: 20px;
+    width: 1200px;
+    box-sizing: border-box;
+}
+
+.property-panel h2 {
+    font-size: 24px;
+    margin: 20px 0 10px;
+    color: #333;
+}
+
+.property-panel p {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #666;
+}
+
+.property-panel .price {
+    font-weight: bold;
+    color: #02B502;
+    font-size: 22px;
 }

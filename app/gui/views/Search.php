@@ -37,7 +37,7 @@
         </div>
     </main>
     <footer>
-        <button onclick="window.location.href='../../gui/views/MenuPrincipalCliente.php'">Ir a Menú Principal</button>
+        <button onclick="window.history.back();">Ir a Menú Principal</button>
     </footer>
 </body>
 </html>

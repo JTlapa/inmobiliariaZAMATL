@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['usuario'];
     $password = $_POST['password'];
 
-    header("Location: /inmobiliaria/inmobiliariaZAMATL/app/gui/views/UserPreferences.php");
+    header("Location: ./../views/UserPreferences.php");
     exit();
 }
 ?>

@@ -60,6 +60,27 @@
             </form>
         </div>
     </header>
+    <main>
+    <div class="property-container">
+        <h1>Propiedades recomendadas</h1>
+        <div class="property-list">
+            <?php
+            foreach ($properties as $property) {
+                echo '<div class="property-panel">';
+                echo '<h2>' . htmlspecialchars($property->getName()) . '</h2>';
+                echo '<p><strong>Descripcion:</strong>' . htmlspecialchars($property->getDescription()) . '</p>';
+                echo '<p><strong>Ubicación:</strong> ' . htmlspecialchars($property->getUbication()) . '</p>';
+                echo '<p><strong>Tamaño:</strong> ' . htmlspecialchars($property->getGroundMeasurements()) . ' m²</p>';
+                echo '<p><strong>Habitaciones:</strong> ' . htmlspecialchars($property->getNumberRooms()) . '</p>';
+                echo '<p><strong>Está en: </strong>' . htmlspecialchars($property->getStatus()) . '</p>';
+                echo '<p class="price"><strong>Precio:</strong> $' . htmlspecialchars($property->getPrice()) . '</p>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+    </div>
+</main>
+
     <script>
         var sliderPrecio = document.getElementById("sliderPrecio");
         var sliderPrecioValue = document.getElementById("sliderPrecioValue");

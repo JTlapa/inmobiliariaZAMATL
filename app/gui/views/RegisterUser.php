@@ -1,3 +1,6 @@
+<?php
+    require_once '../controllers/RegisterUserController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +17,7 @@
         <img class="logo" src="../images/logoZAMATL-removebg-preview.png" alt="Logo ZAMATL">
     </header>
     <main>
-        <form action="../controllers/RegisterUser.php" method="post">
+        <form action="../controllers/RegisterUserController.php" method="post">
             <div class="form-content">
                 <aside>
                     <label for="nombre">Nombre</label>
@@ -33,7 +36,7 @@
             </div>
             <div class="buttons">
                 <button type="submit">Siguiente</button>
-                <button type="button">Atrás</button>
+                <button type="button" onclick="window.history.back();">Atrás</button>
             </div>
         </form>
     </main>

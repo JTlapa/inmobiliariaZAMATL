@@ -1,5 +1,5 @@
 <?php
-require '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/logic/domain/Property.php';
+
 
 class PropertyDAO {
     private $connection = NULL;
@@ -10,12 +10,11 @@ class PropertyDAO {
     }
 
     public function insertProperty($property) {
-        $query = "INSERT INTO Propiedad (idPropiedad, idAgente, idPropietario, ubicacion, nombre, numHabitaciones, medidasTerreno, estatus, descripcion, precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO Propiedad (idAgente, idPropietario, ubicacion, nombre, numHabitaciones, medidasTerreno, estatus, descripcion, precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $mysqli = $this->connection->getConnection();
         $result = -1;
     
         if ($statement = $mysqli->prepare($query)) {
-            $idProperty = $property->getidProperty();
             $idAgent = $property->getidAgent();
             $idOwner = $property->getidOwner();
             $price = $property->getPrice();
@@ -26,16 +25,17 @@ class PropertyDAO {
             $status = $property->getStatus();
             $description = $property->getDescription();
     
-            $statement->bind_param("iiissidssd", $idProperty, $idAgent, $idOwner, $ubication, $name, $numberRooms, $groundMeasurements, $status, $description, $price);
+            $statement->bind_param("iissidssd", $idAgent, $idOwner, $ubication, $name, $numberRooms, $groundMeasurements, $status, $description, $price);
             
             if ($statement->execute()) {
                 $result = 1;
+            } else {
+                echo "Error: " . $mysqli->error;
             }
             $statement->close();
         } else {
             echo "Error: " . $mysqli->error;
         }
-    
         $this->connection->closeConnection();
         return $result;
     }
@@ -94,6 +94,41 @@ class PropertyDAO {
     
         if ($statement = $mysqli->prepare($query)) {
             $statement->bind_param("isss", $preferredPrice, $preferredUbication, $preferredNumberRooms, $preferredStatus);
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            while ($row = $result->fetch_assoc()) {
+                $property = new Property();
+                $property->setIdProperty($row['idPropiedad']);
+                $property->setIdAgent($row['idAgente']);
+                $property->setIdOwner($row['idPropietario']);
+                $property->setPrice($row['precio']);
+                $property->setUbication($row['ubicacion']);
+                $property->setName($row['nombre']);
+                $property->setNumberRooms($row['numHabitaciones']);
+                $property->setGroundMeasurements($row['medidasTerreno']);
+                $property->setStatus($row['estatus']);
+                $property->setDescription($row['descripcion']);
+    
+                $properties[] = $property;
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $properties;
+    }
+
+    public function getAllProperties() {
+        $query = "SELECT * FROM Propiedad";
+        $mysqli = $this->connection->getConnection();
+        $properties = array();
+    
+        if ($statement = $mysqli->prepare($query)) {
             $statement->execute();
             $result = $statement->get_result();
     

@@ -5,7 +5,9 @@ if ($_SESSION['typeUser'] != "Cliente") {
     exit();
 }
 
-require_once '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/dataaccess/Connection.php';
+require_once './../../logic/domain/User.php';
+require_once './../../dataaccess/Connection.php';
+require_once '../../logic/domain/Property.php';
 require_once '../../logic/DAO/PropertyDAO.php';
 require '../../logic/domain/Search.php';
 require_once '../../logic/domain/SearchByProperty.php';

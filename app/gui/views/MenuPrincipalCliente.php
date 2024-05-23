@@ -35,7 +35,7 @@
 </head>
 <body>
     <div class="clientButtons">
-        <button class="clientButton" onclick="displayHistpry()">Historial</button>
+        <button class="clientButton" onclick="displayHistory()">Historial</button>
         <button class="clientButton" onclick="displayAlerts()">Alertas</button>
     </div>
     <header>

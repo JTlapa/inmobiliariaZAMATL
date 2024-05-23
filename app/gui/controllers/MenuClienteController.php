@@ -6,6 +6,7 @@ if ($_SESSION['typeUser'] != "Cliente") {
 }
 
 require_once './../../logic/domain/User.php';
+require_once './../../logic/domain/Client.php';
 require_once './../../dataaccess/Connection.php';
 require_once '../../logic/domain/Property.php';
 require_once '../../logic/DAO/PropertyDAO.php';

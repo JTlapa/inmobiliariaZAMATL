@@ -40,6 +40,91 @@ class PropertyDAO {
         return $result;
     }
 
+    public function updateStatus($newStatus, $idProperty) {
+        $query = "UPDATE Propiedad SET estatus = ? WHERE idPropiedad = ?";
+        $mysqli = $this->connection->getConnection();
+        $result = -1;
+    
+        if ($statement = $mysqli->prepare($query)) {
+    
+            $statement->bind_param("si", $newStatus, $idProperty);
+            
+            if ($statement->execute()) {
+                $result = 1;
+            } else {
+                echo "Error: " . $mysqli->error;
+            }
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+        $this->connection->closeConnection();
+        return $result;
+    }
+
+    public function updatePropertyData($property) {
+        $query = "UPDATE Propiedad SET ubicacion = ?, nombre = ?, numHabitaciones = ?, descripcion = ?, medidasTerreno = ?, precio = ? WHERE idPropiedad = ?";
+        $mysqli = $this->connection->getConnection();
+        $result = -1;
+
+        $id = $property->getIdProperty();
+        $ubicacion = $property->getUbication();
+        $nombre = $property->getName();
+        $numHabitaciones = $property->getNumberRooms();
+        $description = $property->getDescription();
+        $medidasTerreno = $property->getGroundMeasurements();
+        $precio = $property->getPrice();
+        
+        if ($statement = $mysqli->prepare($query)) {
+    
+            $statement->bind_param("ssisddi", $ubicacion, $nombre, $numHabitaciones, $description, $medidasTerreno, $precio, $id);
+            
+            if ($statement->execute()) {
+                $result = 1;
+            } else {
+                echo "Error: " . $mysqli->error;
+            }
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+        $this->connection->closeConnection();
+        return $result;
+    }
+
+    public function getPropertyById($id) {
+        $query = "SELECT * FROM Propiedad WHERE idPropiedad = ?";
+        $mysqli = $this->connection->getConnection();
+        $property = new Property();
+    
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("i", $id);
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            while ($row = $result->fetch_assoc()) {
+                $property->setIdProperty($row['idPropiedad']);
+                $property->setIdAgent($row['idAgente']);
+                $property->setIdOwner($row['idPropietario']);
+                $property->setPrice($row['precio']);
+                $property->setUbication($row['ubicacion']);
+                $property->setName($row['nombre']);
+                $property->setNumberRooms($row['numHabitaciones']);
+                $property->setGroundMeasurements($row['medidasTerreno']);
+                $property->setStatus($row['estatus']);
+                $property->setDescription($row['descripcion']);
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $property;
+    }
+
     public function getPropertiesFromSearchCriteria($search) {
         $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ubicacion = ? AND numHabitaciones <= ? AND estatus = ?";
         $mysqli = $this->connection->getConnection();
@@ -229,5 +314,7 @@ class PropertyDAO {
     
         return $sizes;
     }
+
+
 }
 ?>

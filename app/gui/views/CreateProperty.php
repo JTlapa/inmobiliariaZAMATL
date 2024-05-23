@@ -48,7 +48,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                             <option value="Compra">Compra</option>
                             <option value="Renta">Renta</option>
                         </select>
-                        <select name="comboTipo" id="comboTipo">
+                        <select name="comboPropietario" id="comboPropietario">
                             <option value="" disabled selected>Selecciona un Propietario</option>
                             <?php
                                 $connection = new Connection();

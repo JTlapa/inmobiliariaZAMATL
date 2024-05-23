@@ -41,17 +41,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mails = $userDAO->getEmailsToAlert($ubicacion,$precio,$habitaciones);
         
         foreach($mails as $mail) {
-            
             $to = $mail;
-            $subject = 'Asunto del correo';
-            $message = 'Este es el cuerpo del mensaje.';
-            $headers = "MIME-Version=1.0\r\n";
-            $headers .= "Content-type: text/html; charset=utf-8\r\n";
-            $headers .= "From: coillogs4@gmail.com\r\n".
-                    'Return-path:'.$mail.'' . "\r\n";
+            $subject = 'Nueva propiedad de tu interes';
+            $message = "<html><body><p>Se ha agregado una nueva propiedadde tu interes: </p>";
+            $message .= "<p>Nombre: ".$property->getName()."</p>";
+            $message .= "<p>Descripcion: ".$property->getDescription()."</p>";
+            $message .= "<p>Precio: ".$property->getPrice()."</p>";
+            $message .= "<p>Ubicacion: ".$property->getUbication()."</p>";
+            $message .= "<p>Estatus: ".$property->getStatus()."</p>";
+            $message .= "<p>Numero de habitaciones: ".$property->getNumberRooms()."</p>";
+            $message .= "</body></html>";
+            
+            $headers = "Content-type: text/html; charset=UTF-8\r\n";
+            $headers .= 'From: coillogs4@gmail.com' . "\r\n" .
+            'Reply-To: '.$mail. "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+            
             mail($to, $subject, $message, $headers);
         }
-        
+
         header("Location: ../views/MenuPrincipalAgente.php");
         exit();
     }
@@ -59,3 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 }
 ?>
+<html>
+    <body>
+        <p></p>
+    </body>
+</html>

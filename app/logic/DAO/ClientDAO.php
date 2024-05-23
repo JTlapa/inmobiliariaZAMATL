@@ -1,5 +1,4 @@
 <?php
-require_once '../../logic/domain/Client.php';
 
 class ClientDAO {
     private $connection = NULL;
@@ -22,6 +21,26 @@ class ClientDAO {
             $preferredStatus = $client->getPreferredStatus();
 
             $statement->bind_param("isids", $idUser, $preferredUbication, $preferredNumberRooms, $preferredPrice, $preferredStatus);
+            if($statement->execute()) {
+                $result = 1;
+            }
+            $statement->close();
+        } else {
+            echo "Error";
+        }
+
+        $this->connection->closeConnection();
+        return $result;
+    }
+
+    public function updateAlertType($id, $typeAlert) {
+        $query = "UPDATE Cliente SET tipoAlerta = ? WHERE idUsuario = ?";
+        $mysqli = $this->connection->getConnection();
+        $result = -1;
+
+        if($statement = $mysqli->prepare($query)) {
+
+            $statement->bind_param("si", $typeAlert, $id);
             if($statement->execute()) {
                 $result = 1;
             }

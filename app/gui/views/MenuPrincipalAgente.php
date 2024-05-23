@@ -61,10 +61,10 @@ require_once '../../logic/DAO/PropertyDAO.php';
             window.location.href = 'CreateProperty.php';
         }
         function showDetails(idProperty) {
-            
+            window.location.href = "ShowDetails.php?id="+idProperty;
         }
         function showStatus(idProperty) {
-            
+            window.location.href = "ShowStatus.php?id="+idProperty;
         }
     </script>
 </body>

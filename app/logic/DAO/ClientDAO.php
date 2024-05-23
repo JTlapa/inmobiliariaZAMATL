@@ -9,7 +9,7 @@ class ClientDAO {
     }
 
     public function insertClient($client) {
-        $query = "INSERT INTO Cliente VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO Cliente (idUsuario, ubicacionPref, numHabitacionesPref, precioPref, estatusPref)VALUES (?, ?, ?, ?, ?)";
         $mysqli = $this->connection->getConnection();
         $result = -1;
 

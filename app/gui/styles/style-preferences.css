@@ -85,10 +85,26 @@ input[type="range"]:hover::-webkit-slider-thumb {
     background-color: #1a64ae;
 }
 
-.buttons {
-    margin-top: 250px;
+.radio {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
+}
+
+.buttons {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+input[type="radio"]{
+    margin: 50px;
+}
+
+.radio label {
+    color: white;
+    font-size: 20px;
+    margin-top: 45px;
 }
 
 button {

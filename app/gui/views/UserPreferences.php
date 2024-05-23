@@ -1,3 +1,6 @@
+<?php
+    require_once '../controllers/UserPreferencesController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +26,7 @@
     <main>
         <form action="../controllers/UserPreferencesController.php" method="post">
             <nav class="comboPreferences">
-                <select name="comboUbicacion" id="comboUbicacion">
+                <select name="comboUbicacion" id="comboUbicacion" required>
                     <option value="" disabled selected>Seleccione una ubicación</option>
                     <?php
                         foreach($ubicaciones as $ubicacion) {
@@ -31,7 +34,7 @@
                         }
                     ?>
                 </select>
-                <select name="comboTamanio" id="comboTamanio">
+                <select name="comboTamanio" id="comboTamanio" required>
                         <option value="" disabled selected>Selecciona un tamaño</option>
                         <?php
                         foreach ($tamanios as $tamanio) {
@@ -42,12 +45,18 @@
             </nav>
             <nav class="sliders">
                 <label for="sliderPrecio">Precio máximo</label>
-                <input type="range" name="sliderPrice" id="sliderPrecio" value="0" max="<?php echo $maxPrice; ?>" step="5000">
-                <span class="slider-value" id="sliderPrecioValue">0</span> <!-- Contador del slider -->
+                <input type="range" name="sliderPrice" id="sliderPrecio" value="0" max="<?php echo $maxPrice; ?>" step="5000" required>
+                <span class="slider-value" id="sliderPrecioValue">0</span>
                 <h2>Características especiales</h2>
                 <label for="sliderHabitaciones">Habitaciones</label>
-                <input type="range" name="sliderRooms" id="sliderHabitacion" value="0" max="<?php echo $maxRooms; ?>" step="1">
-                <span class="slider-value" id="sliderHabitacionValue">0</span> <!-- Contador del slider -->
+                <input type="range" name="sliderRooms" id="sliderHabitacion" value="0" max="<?php echo $maxRooms; ?>" step="1" required>
+                <span class="slider-value" id="sliderHabitacionValue">0</span>
+            </nav>
+            <nav class="radio">
+                <label for="radioTypeCompra">Compra</label>
+                <input type="radio" name="typePreferences" id="radioTypeCompra" value="Compra" required>
+                <label for="radioTypeRenta">Renta</label>
+                <input type="radio" name="typePreferences" id="radioTypeRenta" value="Renta" required>
             </nav>
             <nav class="buttons">
                 <button type="submit">Registrarme</button>

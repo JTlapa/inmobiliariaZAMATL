@@ -15,7 +15,7 @@ class ClientDAO {
         $result = -1;
 
         if($statement = $mysqli->prepare($query)) {
-            $idUser = $client->getIdUser();
+            $idUser = $client->getUserId();
             $preferredUbication = $client->getPreferredUbication();
             $preferredNumberRooms = $client->getPreferredNumberRooms();
             $preferredPrice = $client->getPreferredPrice();

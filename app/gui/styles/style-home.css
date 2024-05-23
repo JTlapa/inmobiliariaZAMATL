@@ -169,3 +169,8 @@ main {
     color: #02B502;
     font-size: 22px;
 }
+
+.no-properties {
+    text-align: center;
+    font-size: 1.2em;
+}

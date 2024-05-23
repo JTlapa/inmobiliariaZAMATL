@@ -16,9 +16,28 @@
             display: block;
             margin-top: 10px;
         }
+        .clientButtons{
+            position: fixed;
+            z-index: 1;
+            width: 200px;
+            margin: 0 calc(100% - 200px) 0;
+        }
+        .clientButton{
+            background-color: #cea12c;
+        }
+        .clientButton:hover{
+            opacity: 0.9;
+        }
+        .clientButton:last-child{
+            background-color: red;
+        }
     </style>
 </head>
 <body>
+    <div class="clientButtons">
+        <button class="clientButton" onclick="displayHistory()">Historial</button>
+        <button class="clientButton" onclick="displayAlerts()">Alertas</button>
+    </div>
     <header>
         <img class="logo" src="../images/logoZAMATL-removebg-preview.png" alt="Logo ZAMATL">
         <div class="busqueda">
@@ -98,6 +117,12 @@
         sliderHabitacion.oninput = function() {
             sliderHabitacionValue.textContent = this.value;
         };
+        function displayAlerts(){
+            window.location.href = 'Alerts.php';
+        }
+        function displayHistory() {
+            window.location.href = 'History.php';
+        }
     </script>
 </body>
 </html>

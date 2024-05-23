@@ -24,6 +24,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     header("Location: /inmobiliaria/inmobiliariaZAMATL/app/gui/views/RegisterUser.php");
-    exit();
 }
 ?>

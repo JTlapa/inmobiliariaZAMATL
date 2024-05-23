@@ -34,5 +34,27 @@ class SearchDAO {
         $this->connection->closeConnection();
         return $result;
     }
+    public function getLastThreeIds($idUser) {
+        $query = "SELECT idBusqueda FROM busqueda WHERE idUsuario= ? ORDER BY idBusqueda DESC LIMIT 3";
+        $mysqli = $this->connection->getConnection();
+        $ids = array();
+
+        if($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("i", $idUser);
+            $statement->execute();
+            $result = $statement->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $id = $row['idBusqueda'];
+                $ids[] = $id;
+            }
+
+            $statement->close();
+        } else {
+            echo "Error";
+        }
+
+        $this->connection->closeConnection();
+        return $ids;
+    }
 }
 ?>

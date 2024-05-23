@@ -1,6 +1,4 @@
 <?php
-
-
 class UserDAO {
     private $connection = NULL;
     private $mysqli = NULL;
@@ -52,5 +50,30 @@ class UserDAO {
         $this->connection->closeConnection();
         return $result;
     }
+    public function getEmailsToAlert($location, $price, $rooms){
+        $query = "(SELECT correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Ubicacion' and ubicacionPref= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Habitaciones' and numHabitacionesPref<= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Precio' and precioPref<= ?)";
+        $mysqli = $this->connection->getConnection();
+        $emails = array();
+        
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("sid", $location, $rooms, $price);
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            while ($row = $result->fetch_assoc()) {
+                $email = $row['correo'];
+                $emails[] = $email;
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $emails;
+    }
 }
+
 ?>

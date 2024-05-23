@@ -1,5 +1,4 @@
 <?php
-require_once '/xampp/htdocs/inmobiliaria/inmobiliariaZAMATL/app/logic/domain/User.php';
 
 class Client extends User {
     private $preferredStatus = NULL;

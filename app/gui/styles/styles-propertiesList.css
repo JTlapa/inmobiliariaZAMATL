@@ -1,0 +1,49 @@
+.property-panel .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.property-panel .buttons button{
+    margin: 0 10px; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; 
+    background-color: #007bff;
+    color: white; 
+}
+.property-panel .buttons button:hover{
+    background-color: #0056b3;
+}
+nav{
+    position: fixed;
+    margin: 0;
+    margin-top: 50px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 150px;
+    height: 450px;
+}
+nav button {
+    width: 120px;
+    height: 70px;
+    margin: 0 10px; 
+    padding: 10px 10px; 
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; 
+    background-color: red;
+    border: 1px solid;
+    border-color: white;
+}
+nav button:first-child{
+    background-color: #e2ff51;
+}
+nav button:hover{
+    box-shadow: 0 0 10px black;
+}

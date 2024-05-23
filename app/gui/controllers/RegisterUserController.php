@@ -19,10 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario'] = $user;
         $_SESSION['password'] = $password;
 
-        header("Location: /inmobiliaria/inmobiliariaZAMATL/app/gui/views/UserPreferences.php");
+        header("Location: ./../views/UserPreferences.php");
         exit();
     }
 
-    header("Location: /inmobiliaria/inmobiliariaZAMATL/app/gui/views/RegisterUser.php");
+    header("Location: ./../views/RegisterUser.php");
 }
 ?>

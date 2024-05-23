@@ -22,7 +22,7 @@ require_once './../../logic/DAO/SearchByPropertyDAO.php';
 </head>
 <body>
     <header>
-        <h1>Historal de las ultimas 3 busquedas</h1>
+        <h1>Historial de las ultimas 3 busquedas</h1>
         <img class="logo" src="../images/logoZAMATL-removebg-preview.png" alt="Logo ZAMATL">
     </header>
     <nav>

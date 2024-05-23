@@ -23,11 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ubicacion = isset($_POST['ubicacion']) ? $_POST['ubicacion'] : null;
     $tamanio = isset($_POST['tamanio']) ? (float)$_POST['tamanio'] : null;
     $tipo = isset($_POST['comboTipo']) ? $_POST['comboTipo'] : null;
+    $idPropietario = isset($_POST['comboPropietario']) ? (int)$_POST['comboPropietario'] : null;
 
     
     $property = new Property();
     $property->setIdAgent((int)$_SESSION['userId']);
-    $property->setIdOwner(5);
+    $property->setIdOwner($idPropietario);
     $property->setName($nombre);
     $property->setDescription($descripcion);
     $property->setStatus($tipo);

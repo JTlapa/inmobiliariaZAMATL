@@ -27,8 +27,8 @@ class OwnerDAO {
         return $result;
     }
 
-    public function getOwnersNames() {
-        $query = "SELECT nombre FROM usuario INNER JOIN propietario WHERE usuario.idUsuario = propietario.idUsuario";
+    public function getOwners() {
+        $query = "SELECT propietario.idUsuario as id, nombre FROM usuario INNER JOIN propietario WHERE usuario.idUsuario = propietario.idUsuario";
         $mysqli = $this->connection->getConnection();
         $owners = array();
         
@@ -37,8 +37,10 @@ class OwnerDAO {
             $result = $statement->get_result();
     
             while ($row = $result->fetch_assoc()) {
-                $ownerName = $row['nombre'];
-                $owners[] = $ownerName;
+                $owner = new Owner();
+                $owner->setName($row['nombre']);
+                $owner->setUserId($row['id']);
+                $owners[] = $owner;
             }
     
             $statement->close();

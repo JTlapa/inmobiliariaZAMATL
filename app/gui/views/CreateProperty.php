@@ -53,9 +53,11 @@ require_once '../../logic/DAO/OwnerDAO.php';
                             <?php
                                 $connection = new Connection();
                                 $ownerDAO = new OwnerDAO($connection);
-                                $owners = $ownerDAO->getOwnersNames();
+                                $owners = $ownerDAO->getOwners();
                                 foreach ($owners as $owner) {
-                                    echo "<option value='$owner'>$owner</option>";
+                                    $name = $owner->getName();
+                                    $idUser = $owner->getUserId();
+                                    echo "<option value='$idUser'>$name</option>";
                                 }
                             ?>
                         </select>

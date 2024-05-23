@@ -51,7 +51,7 @@ class UserDAO {
         return $result;
     }
     public function getEmailsToAlert($location, $price, $rooms){
-        $query = "(SELECT correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Ubicacion' and ubicacionPref= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Habitaciones' and numHabitacionesPref<= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Precio' and precioPref<= ?)";
+        $query = "(SELECT correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Ubicacion' and ubicacionPref= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Habitaciones' and numHabitacionesPref>= ?) union (select correo, nombre from usuario inner join cliente on cliente.idUsuario=usuario.idUsuario where tipoAlerta='Precio' and precioPref>= ?)";
         $mysqli = $this->connection->getConnection();
         $emails = array();
         

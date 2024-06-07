@@ -174,3 +174,14 @@ main {
     text-align: center;
     font-size: 1.2em;
 }
+
+.logoutButton {
+    position: fixed;
+        bottom: 20px;
+        left: 20px;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        z-index: 1000;
+}

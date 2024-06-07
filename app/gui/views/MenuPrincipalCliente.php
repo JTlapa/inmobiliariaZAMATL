@@ -89,7 +89,9 @@
                     echo '<div class="property-panel">';
                     echo '<h2>' . htmlspecialchars($property->getName()) . '</h2>';
                     echo '<p><strong>Descripcion:</strong>' . htmlspecialchars($property->getDescription()) . '</p>';
-                    echo '<p><strong>Ubicación:</strong> ' . htmlspecialchars($property->getUbication()) . '</p>';
+                    echo '<p><strong>Ciudad:</strong> ' . htmlspecialchars($property->getCity()) . '</p>';
+                    echo '<p><strong>Calle:</strong> ' . htmlspecialchars($property->getStreet()) . '</p>';
+                    echo '<p><strong>Número: #</strong> '. htmlspecialchars($property->getNumber()) . '</p>';
                     echo '<p><strong>Tamaño:</strong> ' . htmlspecialchars($property->getGroundMeasurements()) . ' m²</p>';
                     echo '<p><strong>Habitaciones:</strong> ' . htmlspecialchars($property->getNumberRooms()) . '</p>';
                     echo '<p><strong>Está en: </strong>' . htmlspecialchars($property->getStatus()) . '</p>';
@@ -102,9 +104,13 @@
             ?>
         </div>
     </div>
+    <button id="logoutButton" class="logoutButton" onclick="logout()">Log Out</button>
 </main>
 
     <script>
+        function logout() {
+            window.location.href = '../controllers/logout.php';
+        }
         var sliderPrecio = document.getElementById("sliderPrecio");
         var sliderPrecioValue = document.getElementById("sliderPrecioValue");
         var sliderHabitacion = document.getElementById("sliderHabitacion");

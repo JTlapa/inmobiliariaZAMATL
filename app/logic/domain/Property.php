@@ -5,7 +5,9 @@ class Property {
     private $idAgent = NULL;
     private $idOwner = NULL;
     private $price = NULL;
-    private $ubication = NULL;
+    private $city = NULL;
+    private $street = NULL;
+    private $number = NULL;
     private $name = NULL;
     private $numberRooms = NULL;
     private $groundMeasurements = NULL;
@@ -44,12 +46,28 @@ class Property {
         $this->price = $price;
     }
 
-    public function getUbication() {
-        return $this->ubication;
+    public function getCity() {
+        return $this->city;
     }
 
-    public function setUbication($ubication) {
-        $this->ubication = $ubication;
+    public function setCity($city) {
+        $this->city = $city;
+    }
+
+    public function getStreet() {
+        return $this->street;
+    }
+
+    public function setStreet($street) {
+        $this->street = $street;
+    }
+
+    public function getNumber() {
+        return $this->number;
+    }
+
+    public function setNumber($number) {
+        $this->number = $number;
     }
 
     public function getName() {

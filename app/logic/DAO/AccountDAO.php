@@ -4,8 +4,8 @@ class AccountDAO {
     private $connection = NULL;
     private $mysqli = NULL;
 
-    public function __construct() {
-        $this->connection = new Connection();
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
     public function insertAccount($account) {
         $query = "INSERT INTO CuentaAcceso VALUES(?, ?, sha2(?, 256))";
@@ -48,6 +48,24 @@ class AccountDAO {
             $statement->close();
         } else {
             echo "Error";
+        }
+
+        $this->connection->closeConnection();
+        return $result;
+    }
+
+    public function isUsernameRegistered($username) {
+        $query = "SELECT username FROM cuentaAcceso WHERE username = ?";
+        $mysqli = $this->connection->getConnection();
+        $result = false;
+
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("s", $username);
+            $statement->execute();
+            $statement->store_result();
+            $count = $statement->num_rows;
+            $result = $count > 0;
+            $statement->close();
         }
 
         $this->connection->closeConnection();

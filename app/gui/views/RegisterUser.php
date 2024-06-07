@@ -1,6 +1,3 @@
-<?php
-    require_once '../controllers/RegisterUserController.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +6,7 @@
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/style-register.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Registrar usuario</title>
 </head>
 <body>
@@ -17,6 +15,13 @@
         <img class="logo" src="../images/logoZAMATL-removebg-preview.png" alt="Logo ZAMATL">
     </header>
     <main>
+        <?php
+        session_start();
+        if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
+            echo '<div class="error-message">' . $_SESSION['error_message'] . '</div>';
+            unset($_SESSION['error_message']);
+        }
+        ?>
         <form action="../controllers/RegisterUserController.php" method="post">
             <div class="form-content">
                 <aside>
@@ -30,8 +35,11 @@
                 <div class="derecha">
                     <label for="usuario">Usuario</label>
                     <input type="text" name="usuario" id="usuario" required>
-                    <label for="password">Contraseña</label>
-                    <input type="text" name="password" id="password" required>
+                    <div class="password-wrapper">
+                        <label for="password">Contraseña</label>
+                        <input type="password" name="password" id="password" required>
+                        <i class="fas fa-eye" id="togglePassword"></i>
+                    </div>
                 </div>
             </div>
             <div class="buttons">
@@ -40,5 +48,16 @@
             </div>
         </form>
     </main>
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 </html>

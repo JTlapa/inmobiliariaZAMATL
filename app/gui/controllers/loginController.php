@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require './../../dataaccess/Connection.php';
 require '../../logic/domain/Account.php';
@@ -14,15 +13,15 @@ $account = new Account();
 $account->setUser($username);
 $account->setPassword($password);
 
-$accountDAO = new AccountDAO();
+$connection = new Connection();
+$accountDAO = new AccountDAO($connection);
 $userId = $accountDAO->getUserIdByAccount($account);
 $userDAO = new UserDAO();
-
-echo($userId);
 
 if($userId != -1) {
     $typeUser = $userDAO->getTypeUserById($userId);
 
+    session_start();
     $_SESSION['typeUser'] = $typeUser;
     $_SESSION['userId'] = $userId;
     if($typeUser == "Cliente") {
@@ -30,9 +29,9 @@ if($userId != -1) {
     } elseif ($typeUser == "Agente") {
         header("Location: ./../views/MenuPrincipalAgente.php"); 
     }
-    
-}else {
-    
-    header("Location: ./../"); 
+} else {
+    session_start();
+    $_SESSION['error_message'] = "La cuenta no existe. Verifica tus credenciales.";
+    echo "<script>window.location.href = './../';</script>";
 }
 ?>

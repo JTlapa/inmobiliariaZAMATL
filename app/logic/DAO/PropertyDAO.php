@@ -107,7 +107,7 @@ class PropertyDAO {
                 $property->setIdAgent($row['idAgente']);
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
-                $property->setUbication($row['ubicacion']);
+                $property->setCity($row['ciudad']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -126,7 +126,7 @@ class PropertyDAO {
     }
 
     public function getPropertiesFromSearchCriteria($search) {
-        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ubicacion = ? AND numHabitaciones <= ? AND estatus = ?";
+        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
@@ -146,7 +146,9 @@ class PropertyDAO {
                 $property->setIdAgent($row['idAgente']);
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
-                $property->setUbication($row['ubicacion']);
+                $property->setCity($row['ciudad']);
+                $property->setStreet($row['calle']);
+                $property->setNumber($row['numero']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -168,7 +170,7 @@ class PropertyDAO {
     
 
     public function getPropertiesFromClientPreferences($client) {
-        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ubicacion = ? AND numHabitaciones <= ? AND estatus = ?";
+        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
@@ -188,7 +190,9 @@ class PropertyDAO {
                 $property->setIdAgent($row['idAgente']);
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
-                $property->setUbication($row['ubicacion']);
+                $property->setCity($row['ciudad']);
+                $property->setStreet($row['calle']);
+                $property->setNumber($row['numero']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -223,7 +227,7 @@ class PropertyDAO {
                 $property->setIdAgent($row['idAgente']);
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
-                $property->setUbication($row['ubicacion']);
+                $property->setCity($row['ciudad']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -280,13 +284,13 @@ class PropertyDAO {
     }
 
     public function getAllUbications() {
-        $query = "SELECT DISTINCT ubicacion FROM Propiedad";
+        $query = "SELECT DISTINCT ciudad FROM Propiedad";
         $mysqli = $this->connection->getConnection();
         $ubications = array();
 
         if ($result = $mysqli->query($query)) {
             while ($row = $result->fetch_assoc()) {
-                $ubications[] = $row['ubicacion'];
+                $ubications[] = $row['ciudad'];
             }
         } else {
             echo "Error: " . $mysqli->error;
@@ -314,7 +318,5 @@ class PropertyDAO {
     
         return $sizes;
     }
-
-
 }
 ?>

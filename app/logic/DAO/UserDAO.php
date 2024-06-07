@@ -74,6 +74,24 @@ class UserDAO {
     
         return $emails;
     }
+
+    public function isEmailRegistered($email) {
+        $query = "SELECT correo FROM usuario WHERE correo = ?";
+        $mysqli = $this->connection->getConnection();
+        $result = false;
+
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("s", $email);
+            $statement->execute();
+            $statement->store_result();
+            $count = $statement->num_rows;
+            $result = $count > 0;
+            $statement->close();
+        }
+
+        $this->connection->closeConnection();
+        return $result;
+    }
 }
 
 ?>

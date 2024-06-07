@@ -22,7 +22,7 @@ require_once './../../logic/DAO/SearchByPropertyDAO.php';
 </head>
 <body>
     <header>
-        <h1>Historal de las ultimas 3 busquedas</h1>
+        <h1>Historial de las ultimas 3 busquedas</h1>
         <img class="logo" src="../images/logoZAMATL-removebg-preview.png" alt="Logo ZAMATL">
     </header>
     <nav>
@@ -41,14 +41,16 @@ require_once './../../logic/DAO/SearchByPropertyDAO.php';
                 if (!empty($properties)) {
                     foreach ($properties as $property) {
                         echo '<div class="property-panel">';
-                        echo '<div><h2>' . htmlspecialchars($property->getName()) . '</h2>';
+                        echo '<h2>' . htmlspecialchars($property->getName()) . '</h2>';
                         echo '<p><strong>Descripcion:</strong>' . htmlspecialchars($property->getDescription()) . '</p>';
-                        echo '<p><strong>Ubicación:</strong> ' . htmlspecialchars($property->getUbication()) . '</p>';
+                        echo '<p><strong>Ciudad:</strong> ' . htmlspecialchars($property->getCity()) . '</p>';
+                        echo '<p><strong>Calle:</strong> ' . htmlspecialchars($property->getStreet()) . '</p>';
+                        echo '<p><strong>Número: #</strong> '. htmlspecialchars($property->getNumber()) . '</p>';
                         echo '<p><strong>Tamaño:</strong> ' . htmlspecialchars($property->getGroundMeasurements()) . ' m²</p>';
                         echo '<p><strong>Habitaciones:</strong> ' . htmlspecialchars($property->getNumberRooms()) . '</p>';
                         echo '<p><strong>Está en: </strong>' . htmlspecialchars($property->getStatus()) . '</p>';
-                        echo '<p class="price"><strong>Precio:</strong> $' . htmlspecialchars($property->getPrice()) . '</p> </div></div>';
-                        
+                        echo '<p class="price"><strong>Precio:</strong> $' . htmlspecialchars($property->getPrice()) . '</p>';
+                        echo '</div>';
                     }
                 }
             }

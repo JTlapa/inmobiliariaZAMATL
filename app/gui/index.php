@@ -13,6 +13,13 @@
         <div class="login">
             <h1>Inicio de sesión</h1>
             <img src="images/logoFondoBlanco-removebg-preview.png" alt="Logo ZAMATL">
+            <?php
+            session_start();
+            if (isset($_SESSION['error_message'])) {
+                echo "<p class='error-message'>{$_SESSION['error_message']}</p>";
+                unset($_SESSION['error_message']);
+            }
+            ?>
             <form action="controllers/loginController.php" method="post">
                 <label for="usuario">Usuario</label>
                 <input type="text" name="username" id="usuario">

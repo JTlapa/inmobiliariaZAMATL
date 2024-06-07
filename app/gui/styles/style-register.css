@@ -1,6 +1,8 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to right, #3399FF, #02B502);
+    margin: 0;
+    padding: 0;
 }
 
 header h1 {
@@ -38,14 +40,18 @@ input {
     margin-bottom: 40px;
     border-radius: 20px;
     font-size: 14px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
 }
 
-label, input[type="text"], input[type="email"] {
+label, input[type="email"], .password-wrapper {
     display: block;
 }
 
 label {
     font-size: 30px;
+    color: white;
+    margin-bottom: 10px;
 }
 
 button {
@@ -53,9 +59,10 @@ button {
     width: 150px;
     color: white;
     cursor: pointer;
-    margin: 0 150px 0 0;
+    margin: 0 20px;
     border-radius: 10px;
     transition: 400ms;
+    border: none;
 }
 
 button:hover {
@@ -65,7 +72,7 @@ button:hover {
 .buttons {
     display: flex;
     justify-content: center;
-    margin: 200px 0;
+    margin: 50px 0;
 }
 
 button[type="submit"] {
@@ -74,4 +81,34 @@ button[type="submit"] {
 
 button[type="button"] {
     background-color: red;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 45%;
+    margin-bottom: 40px;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+    pointer-events: all;
+    width: 20px;
+    text-align: center;
+}
+
+.error-message {
+    color: red;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 35px;
 }

@@ -62,9 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $clientInsertResult = $clientDAO->insertClient($client);
     
                 if ($clientInsertResult == 1) {
-                    $_SESSION['typeUser'] = 'Cliente';
-                    $_SESSION['userId'] = $userId;
-                    header("Location: ./../views/MenuPrincipalCliente.php");
+                    echo "<script>alert('¡Cuenta creada exitosamente!\\nNombre de usuario: $username\\nContraseña: $password');";
+                    echo "window.location.href = './../views/MenuPrincipalCliente.php';</script>";
                     exit();
                 } else {
                     echo "Error al insertar cliente";

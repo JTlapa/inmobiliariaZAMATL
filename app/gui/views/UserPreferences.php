@@ -27,7 +27,7 @@
         <form action="../controllers/UserPreferencesController.php" method="post">
             <nav class="comboPreferences">
                 <select name="comboUbicacion" id="comboUbicacion" required>
-                    <option value="" disabled selected>Seleccione una ubicación</option>
+                    <option value="" disabled selected>Seleccione una ciudad</option>
                     <?php
                         foreach($ubicaciones as $ubicacion) {
                             echo "<option value='$ubicacion'>$ubicacion</option>";
@@ -35,13 +35,11 @@
                     ?>
                 </select>
                 <select name="comboTamanio" id="comboTamanio" required>
-                        <option value="" disabled selected>Selecciona un tamaño</option>
-                        <?php
-                        foreach ($tamanios as $tamanio) {
-                            echo "<option value='$tamanio'>$tamanio</option>";
-                        }
-                        ?>
-                    </select>
+                    <option value="" disabled selected>Selecciona un tamaño</option>
+                    <option value="50">Menos de 50 m²</option>
+                    <option value="75">Entre 51 y 75 m²</option>
+                    <option value="80">Más de 80 m²</option>
+                </select>
             </nav>
             <nav class="sliders">
                 <label for="sliderPrecio">Precio máximo</label>

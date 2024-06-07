@@ -31,7 +31,7 @@ class SearchByPropertyDAO {
         return $result;
     }
     public function getPropertiesByIdSearch($idSearch) {
-        $query = "select DISTINCT propiedad.idPropiedad as idPropiedad,nombre, ubicacion, numHabitaciones, precio," ;
+        $query = "select DISTINCT propiedad.idPropiedad as idPropiedad,nombre, ciudad, calle, numero, numHabitaciones, precio," ;
         $query .= "medidasTerreno, estatus, descripcion from propiedad inner join busquedaporpropiedad on ";
         $query .= "busquedaporpropiedad.idPropiedad = propiedad.idPropiedad WHERE busquedaporpropiedad.idBusqueda = ?";
         $mysqli = $this->connection->getConnection();
@@ -45,7 +45,9 @@ class SearchByPropertyDAO {
             while ($row = $result->fetch_assoc()) {
                 $property = new Property();
                 $property->setPrice($row['precio']);
-                $property->setUbication($row['ubicacion']);
+                $property->setCity($row['ciudad']);
+                $property->setStreet($row['calle']);
+                $property->setNumber($row['numero']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);

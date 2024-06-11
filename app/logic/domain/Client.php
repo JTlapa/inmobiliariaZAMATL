@@ -5,6 +5,7 @@ class Client extends User {
     private $preferredPrice = NULL;
     private $preferredUbication = NULL;
     private $preferredNumberRooms = NULL;
+    private $groundMeasurements = NULL;
 
     public function getPreferredStatus() {
         return $this->preferredStatus;
@@ -36,6 +37,14 @@ class Client extends User {
 
     public function setPreferredNumberRooms($preferredNumberRooms) {
         $this->preferredNumberRooms = $preferredNumberRooms;
+    }
+
+    public function getGroundMeasurements() {
+        return $this->groundMeasurements;
+    }
+
+    public function setGroundMeasurements($groundMeasurements) {
+        $this->groundMeasurements = $groundMeasurements;
     }
 }
 ?>

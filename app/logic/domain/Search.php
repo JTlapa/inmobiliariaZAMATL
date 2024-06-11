@@ -7,6 +7,7 @@ class Search {
     private $numberRooms = NULL;
     private $date = NULL;
     private $searchType = NULL;
+    private $terrainMeasurement = NULL;
 
     public function getIdSearch() {
         return $this->idSearch;
@@ -62,6 +63,14 @@ class Search {
 
     public function setSearchType($searchType) {
         $this->searchType = $searchType;
+    }
+
+    public function getTerrainMeasurement() {
+        return $this->terrainMeasurement;
+    }
+
+    public function setTerrainMeasurement($terrainMeasurement) {
+        $this->terrainMeasurement = $terrainMeasurement;
     }
 }
 

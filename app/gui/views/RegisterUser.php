@@ -26,18 +26,18 @@
             <div class="form-content">
                 <aside>
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" required>
+                    <input type="text" name="nombre" id="nombre" placeholder="Juan" required>
                     <label for="apellido">Apellidos</label>
-                    <input type="text" name="apellido" id="apellido" required>
+                    <input type="text" name="apellido" id="apellido" placeholder="Hernández" required>
                     <label for="correo">Correo</label>
-                    <input type="email" name="correo" id="correo" required>
+                    <input type="email" name="correo" id="correo" placeholder="example@domain.com" required>
                 </aside>
                 <div class="derecha">
                     <label for="usuario">Usuario</label>
                     <input type="text" name="usuario" id="usuario" required>
                     <div class="password-wrapper">
                         <label for="password">Contraseña</label>
-                        <input type="password" name="password" id="password" required>
+                        <input type="password" name="password" id="password" placeholder="Al menos 8 caracteres" required>
                         <i class="fas fa-eye" id="togglePassword"></i>
                     </div>
                 </div>

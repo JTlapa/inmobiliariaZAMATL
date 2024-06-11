@@ -68,11 +68,9 @@
                     </select>
                     <select name="comboTamanio" id="comboTamanio">
                         <option value="" disabled selected>Selecciona un tamaño</option>
-                        <?php
-                        foreach ($tamanios as $tamanio) {
-                            echo "<option value='$tamanio'>$tamanio</option>";
-                        }
-                        ?>
+                        <option value="50">Menos de 50 m²</option>
+                        <option value="75">Menos de 75 m²</option>
+                        <option value="80">Más de 80 m²</option>
                     </select>
                 </nav>
                 <button type="submit">Buscar</button>

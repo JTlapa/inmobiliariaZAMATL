@@ -69,6 +69,7 @@ class ClientDAO {
                 $client->setPreferredNumberRooms($row['numHabitacionesPref']);
                 $client->setPreferredPrice($row['precioPref']);
                 $client->setPreferredStatus($row['estatusPref']);
+                $client->setGroundMeasurements($row['medidasTerreno']);
             }
 
             $statement->close();

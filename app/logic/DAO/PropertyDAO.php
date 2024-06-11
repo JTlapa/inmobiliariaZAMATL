@@ -126,17 +126,23 @@ class PropertyDAO {
     }
 
     public function getPropertiesFromSearchCriteria($search) {
-        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
-        $mysqli = $this->connection->getConnection();
-        $properties = array();
-    
         $precio = $search->getPrice();
         $ubicacion = $search->getUbication();
         $numHabitaciones = $search->getNumberRooms();
         $estatus = $search->getSearchType();
+        $tamanio = $search->getTerrainMeasurement();
+        
+        if ($tamanio == 80) {
+            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno >= ?";
+        } else {
+            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno <= ?";
+        }
+        
+        $mysqli = $this->connection->getConnection();
+        $properties = array();
     
         if ($statement = $mysqli->prepare($query)) {
-            $statement->bind_param("dsss", $precio, $ubicacion, $numHabitaciones, $estatus);
+            $statement->bind_param("dsssd", $precio, $ubicacion, $numHabitaciones, $estatus, $tamanio);
             $statement->execute();
             $result = $statement->get_result();
     
@@ -168,9 +174,10 @@ class PropertyDAO {
         return $properties;
     }
     
+    
 
     public function getPropertiesFromClientPreferences($client) {
-        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
+        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno = ?";
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
@@ -178,9 +185,10 @@ class PropertyDAO {
         $preferredUbication = $client->getPreferredUbication();
         $preferredNumberRooms = $client->getPreferredNumberRooms();
         $preferredStatus = $client->getPreferredStatus();
+        $groundMeasurements = $client->getGroundMeasurements();
     
         if ($statement = $mysqli->prepare($query)) {
-            $statement->bind_param("isss", $preferredPrice, $preferredUbication, $preferredNumberRooms, $preferredStatus);
+            $statement->bind_param("isssd", $preferredPrice, $preferredUbication, $preferredNumberRooms, $preferredStatus, $groundMeasurements);
             $statement->execute();
             $result = $statement->get_result();
     

@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $search->setUbication($ubicacion);
         $search->setSearchType($tipo);
         $search->setDate(date("Y-m-d"));
+        $search->setTerrainMeasurement($tamanio);
 
         $properties = $propertyDAO->getPropertiesFromSearchCriteria($search);
         $idSearch = $searchDAO->insertSearch($search);

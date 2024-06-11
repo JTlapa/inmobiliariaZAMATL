@@ -35,7 +35,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                 <aside>
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre" required>
-                    <label for="descripcion">Descripcion</label>
+                    <label for="descripcion">Descripción</label>
                     <input type="text" name="descripcion" id="descripcion" required>
                     <label for="ciudad">Ciudad</label>
                     <input type="text" name="ciudad" id="ciudad" required>

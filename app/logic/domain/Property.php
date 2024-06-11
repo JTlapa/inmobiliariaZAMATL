@@ -148,8 +148,8 @@ class Property {
             $errors = "El nombre de la propiedad ya está registrado.";
             return $errors;
         }
-        if ($dao->isNameRegistered($this->name)) {
-            $errors = "El nombre de la propiedad ya está registrado.";
+        if ($dao->isPropertyRegistered($this->city, $this->street, $this->number)) {
+            $errors = "La ubicación de la propiedad ya está ocupada por otra.";
             return $errors;
         }
     

@@ -22,9 +22,9 @@
             ?>
             <form action="controllers/loginController.php" method="post">
                 <label for="usuario">Usuario</label>
-                <input type="text" name="username" id="usuario">
+                <input type="text" name="username" id="usuario" required>
                 <label for="password">Contraseña</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" required>
                 <button type="submit">Iniciar sesión</button>
             </form>
             <p>¿No tienes cuenta? <a href="../gui/views/RegisterUser.php">Crea una</a></p>

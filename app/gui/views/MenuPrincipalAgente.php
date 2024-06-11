@@ -3,6 +3,10 @@
     if($_SESSION['typeUser'] != "Agente") {
         header("Location: ./../.");
     }
+    if (isset($_SESSION['error_message'])) {
+        echo '<script> alert("'.$_SESSION['error_message'].'"); </script>';
+        unset($_SESSION['error_message']);
+    }
     
 require_once './../../dataaccess/Connection.php';
 require_once '../../logic/domain/Property.php';
@@ -39,7 +43,9 @@ require_once '../../logic/DAO/PropertyDAO.php';
                     echo '<div class="property-panel">';
                     echo '<div><h2>' . htmlspecialchars($property->getName()) . '</h2>';
                     echo '<p><strong>Descripcion:</strong>' . htmlspecialchars($property->getDescription()) . '</p>';
-                    echo '<p><strong>Ubicación:</strong> ' . htmlspecialchars($property->getUbication()) . '</p>';
+                    echo '<p><strong>Ciudad:</strong> ' . htmlspecialchars($property->getCity()) . '</p>';
+                    echo '<p><strong>Calle:</strong> ' . htmlspecialchars($property->getStreet()) . '</p>';
+                    echo '<p><strong>Número: #</strong> '. htmlspecialchars($property->getNumber()) . '</p>';
                     echo '<p><strong>Tamaño:</strong> ' . htmlspecialchars($property->getGroundMeasurements()) . ' m²</p>';
                     echo '<p><strong>Habitaciones:</strong> ' . htmlspecialchars($property->getNumberRooms()) . '</p>';
                     echo '<p><strong>Está en: </strong>' . htmlspecialchars($property->getStatus()) . '</p>';

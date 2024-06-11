@@ -22,6 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/style-createProperty.css">
+    <link rel="stylesheet" href="../styles/style-ranges.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <title>Actualizar Propiedad</title>
 </head>
@@ -34,20 +35,27 @@
         <form action="../controllers/ShowDetailsController.php?id=<?php echo $idProperty;?>"  method="post">
             <div class="form-content">
                 <aside>
-                    <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" value="<?php echo $propertyLoaded->getName() ?>" required>
+                <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre"  value="<?php echo $propertyLoaded->getName() ?>" required>
                     <label for="descripcion">Descripcion</label>
-                    <input type="text" name="descripcion" id="descripcion" value="<?php echo $propertyLoaded->getDescription() ?>" required>
-                    <label for="precio">Precio</label>
-                    <input type="text" name="precio" id="precio" value="<?php echo $propertyLoaded->getPrice() ?>" required>
+                    <input type="text" name="descripcion" id="descripcion" value="<?php echo $propertyLoaded->getDescription() ?>"  required>
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" name="ciudad" id="ciudad" value="<?php echo $propertyLoaded->getCity() ?>"  required>
+                    <label for="calle">Calle</label>
+                    <input type="text" name="calle" id="calle" value="<?php echo $propertyLoaded->getStreet() ?>" required>
+                    <label for="numero">Número</label>
+                    <input type="text" name="numero" id="numero"  value="<?php echo $propertyLoaded->getNumber() ?>" required>
                 </aside>
                 <div class="derecha">
-                    <label for="tamanio">Tamaño</label>
-                    <input type="text" name="tamanio" id="tamanio" value="<?php echo $propertyLoaded->getGroundMeasurements() ?>" required>
-                    <label for="habitaciones">No. de Habitaciones</label>
-                    <input type="text" name="habitaciones" id="habitaciones" value="<?php echo $propertyLoaded->getNumberRooms() ?>" required>
-                    <label for="ubicacion">Ubicacion</label>
-                    <input type="text" name="ubicacion" id="ubicacion" value="<?php echo $propertyLoaded->getUbication() ?>" required>
+                <label for="sliderTamanio">Tamaño</label>
+                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo $propertyLoaded->getGroundMeasurements()?>" max="200" step="5" required>
+                    <span class="slider-value" id="sliderTamanioValue"><?php echo $propertyLoaded->getGroundMeasurements()?>m&sup2;</span>
+                    <label for="sliderHabitaciones">No. de Habitaciones</label>
+                    <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" max="15" step="1" value="<?php echo $propertyLoaded->getNumberRooms() ?>" required>
+                    <span class="slider-value" id="sliderHabitacionesValue"><?php echo $propertyLoaded->getNumberRooms() ?></span>
+                    <label for="sliderPrecio">Precio</label>
+                    <input type="range" name="sliderPrecio" id="sliderPrecio"  min="1000" max="5000000" value="<?php echo $propertyLoaded->getPrice() ?>" step="100" required>
+                    <span class="slider-value" id="sliderPrecioValue">$<?php echo $propertyLoaded->getPrice() ?></span>
                 </div>
             </div>
             <div class="buttons">
@@ -60,6 +68,25 @@
         function logOut(){
             window.location.href = './MenuPrincipalAgente.php';
         }
+        var sliderTamanio = document.getElementById("sliderTamanio");
+        var sliderTamanioValue = document.getElementById("sliderTamanioValue");
+        var sliderPrecio = document.getElementById("sliderPrecio");
+        var sliderPrecioValue = document.getElementById("sliderPrecioValue");
+        var sliderHabitacion = document.getElementById("sliderHabitaciones");
+        var sliderHabitacionesValue = document.getElementById("sliderHabitacionesValue");
+
+        sliderTamanio.oninput = function() {
+            sliderTamanioValue.innerHTML = this.value+"m&sup2;";
+        };
+
+        sliderPrecio.oninput = function() {
+            sliderPrecioValue.textContent = "$"+this.value;
+        };
+
+        sliderHabitaciones.oninput = function() {
+            sliderHabitacionesValue.textContent = this.value;
+        };
+
     </script>
 </body>
 </html>

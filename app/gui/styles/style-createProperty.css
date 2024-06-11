@@ -32,7 +32,7 @@ aside, .derecha {
     margin: 0 20px;
 }
 
-input {
+input[type="text"], input[type="email"], textarea {
     width: 50%;
     height: 30px;
     margin-bottom: 40px;
@@ -40,7 +40,7 @@ input {
     font-size: 14px;
 }
 
-label, input[type="text"], input[type="email"] {
+label, input[type="text"], input[type="email"], textarea{
     display: block;
 }
 
@@ -87,8 +87,10 @@ select {
     margin-top: 25px;
 }
 select:last-child {
-    margin-top: 80px;
+    margin-top: 8px;
 }
 select:hover {
     transform:  scale(1.1);
 }
+
+

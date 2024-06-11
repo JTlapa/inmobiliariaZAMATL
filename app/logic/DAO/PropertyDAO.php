@@ -10,7 +10,7 @@ class PropertyDAO {
     }
 
     public function insertProperty($property) {
-        $query = "INSERT INTO Propiedad (idAgente, idPropietario, ubicacion, nombre, numHabitaciones, medidasTerreno, estatus, descripcion, precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO Propiedad (idAgente, idPropietario, ciudad, calle, numero, nombre, numHabitaciones, medidasTerreno, estatus, descripcion, precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $mysqli = $this->connection->getConnection();
         $result = -1;
     
@@ -18,14 +18,16 @@ class PropertyDAO {
             $idAgent = $property->getidAgent();
             $idOwner = $property->getidOwner();
             $price = $property->getPrice();
-            $ubication = $property->getUbication();
+            $city = $property->getCity();
+            $street = $property->getStreet();
+            $number = $property->getNumber();
             $name = $property->getName();
             $numberRooms = $property->getNumberRooms();
             $groundMeasurements = $property->getGroundMeasurements();
             $status = $property->getStatus();
             $description = $property->getDescription();
     
-            $statement->bind_param("iissidssd", $idAgent, $idOwner, $ubication, $name, $numberRooms, $groundMeasurements, $status, $description, $price);
+            $statement->bind_param("iissisidssd", $idAgent, $idOwner, $city, $street, $number, $name, $numberRooms, $groundMeasurements, $status, $description, $price);
             
             if ($statement->execute()) {
                 $result = 1;
@@ -63,12 +65,14 @@ class PropertyDAO {
     }
 
     public function updatePropertyData($property) {
-        $query = "UPDATE Propiedad SET ubicacion = ?, nombre = ?, numHabitaciones = ?, descripcion = ?, medidasTerreno = ?, precio = ? WHERE idPropiedad = ?";
+        $query = "UPDATE Propiedad SET ciudad = ?, calle = ?, numero = ?, nombre = ?, numHabitaciones = ?, descripcion = ?, medidasTerreno = ?, precio = ? WHERE idPropiedad = ?";
         $mysqli = $this->connection->getConnection();
         $result = -1;
 
         $id = $property->getIdProperty();
-        $ubicacion = $property->getUbication();
+        $city = $property->getCity();
+        $street = $property->getStreet();
+        $number = $property->getNumber();
         $nombre = $property->getName();
         $numHabitaciones = $property->getNumberRooms();
         $description = $property->getDescription();
@@ -77,7 +81,7 @@ class PropertyDAO {
         
         if ($statement = $mysqli->prepare($query)) {
     
-            $statement->bind_param("ssisddi", $ubicacion, $nombre, $numHabitaciones, $description, $medidasTerreno, $precio, $id);
+            $statement->bind_param("ssisisddi", $city, $street, $number, $nombre, $numHabitaciones, $description, $medidasTerreno, $precio, $id);
             
             if ($statement->execute()) {
                 $result = 1;
@@ -108,6 +112,8 @@ class PropertyDAO {
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
                 $property->setCity($row['ciudad']);
+                $property->setStreet($row['calle']);
+                $property->setNumber($row['numero']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -236,6 +242,8 @@ class PropertyDAO {
                 $property->setIdOwner($row['idPropietario']);
                 $property->setPrice($row['precio']);
                 $property->setCity($row['ciudad']);
+                $property->setStreet($row['calle']);
+                $property->setNumber($row['numero']);
                 $property->setName($row['nombre']);
                 $property->setNumberRooms($row['numHabitaciones']);
                 $property->setGroundMeasurements($row['medidasTerreno']);
@@ -326,5 +334,60 @@ class PropertyDAO {
     
         return $sizes;
     }
+
+    public function isNameRegistered($name) {
+        $query = "SELECT COUNT(*) AS count FROM Propiedad WHERE nombre = ?";
+        $mysqli = $this->connection->getConnection();
+        $resultado = 0;
+    
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("s", $name);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            while ($row = $result->fetch_assoc()) {
+                if ($row['count'] > 0) {
+                    $resultado = 1;
+                }
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $resultado;
+    }
+    
+    public function isPropertyRegistered($city, $street, $number) {
+        $query = "SELECT COUNT(*) AS count FROM Propiedad WHERE ciudad = ? AND calle = ? AND numero = ?";
+        $mysqli = $this->connection->getConnection();
+        $resultado = 0;
+
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("ssi", $city, $street, $number);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            while ($row = $result->fetch_assoc()) {
+                if ($row['count'] > 0) {
+                    $resultado = 1;
+                }
+            }
+
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+
+        $mysqli->close();
+
+        return $resultado;
+    }
+
+    
 }
+
 ?>

@@ -109,6 +109,53 @@ class Property {
     public function setDescription($description) {
         $this->description = $description;
     }
+
+    public function validateData() {
+        $errors = null;
+    
+        // Validar city
+        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/', $this->city) || strlen($this->city) > 60) {
+            $errors = "El nombre de la ciudad debe contener solo letras y no exceder los 60 caracteres.";
+            return $errors;
+        }
+    
+        // Validar street
+        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/', $this->street) || strlen($this->street) > 60) {
+            $errors = "El nombre de la calle debe contener solo letras y no exceder los 60 caracteres.";
+            return $errors;
+        }
+    
+        // Validar number
+        if (!is_numeric($this->number) || $this->number < 1 || $this->number >= 10000) {
+            $errors = "El número de la propiedad debe ser un número mayor o igual a 1 y menor que 10000.";
+            return $errors;
+        }
+    
+        // Validar name
+        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/', $this->name) || strlen($this->name) > 60) {
+            $errors = "El nombre de la propiedad debe contener solo letras y no exceder los 60 caracteres.";
+            return $errors;
+        }
+    
+        // Validar description
+        if (strlen($this->description) > 60) {
+            $errors = "La descripción de la propiedad no debe exceder los 60 caracteres.";
+            return $errors;
+        }
+        $connection = new Connection();
+        $dao = new PropertyDAO($connection);
+        if ($dao->isNameRegistered($this->name)) {
+            $errors = "El nombre de la propiedad ya está registrado.";
+            return $errors;
+        }
+        if ($dao->isNameRegistered($this->name)) {
+            $errors = "El nombre de la propiedad ya está registrado.";
+            return $errors;
+        }
+    
+        return $errors;
+    }
+    
 }
 
 ?>

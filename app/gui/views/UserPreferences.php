@@ -69,7 +69,7 @@
         var sliderHabitacionValue = document.getElementById("sliderHabitacionValue");
 
         sliderPrecio.oninput = function() {
-            sliderPrecioValue.textContent = this.value;
+            sliderPrecioValue.textContent = "$"+this.value;
         };
 
         sliderHabitacion.oninput = function() {

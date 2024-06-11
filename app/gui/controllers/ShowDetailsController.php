@@ -14,10 +14,12 @@
     $property->setIdProperty($idProperty);
     $property->setName($_POST['nombre']);
     $property->setDescription($_POST['descripcion']);
-    $property->setUbication($_POST['ubicacion']);
-    $property->setNumberRooms((int)$_POST['habitaciones']);
-    $property->setPrice((float)$_POST['precio']);
-    $property->setGroundMeasurements((float)$_POST['tamanio']);
+    $property->setCity($_POST['ciudad']);
+    $property->setStreet($_POST['calle']);
+    $property->setNumber($_POST['numero']);
+    $property->setNumberRooms((int)$_POST['sliderHabitaciones']);
+    $property->setPrice((float)$_POST['sliderPrecio']);
+    $property->setGroundMeasurements((float)$_POST['sliderTamanio']);
 
     $connection = new Connection();
     $propertyDAO = new PropertyDAO($connection);

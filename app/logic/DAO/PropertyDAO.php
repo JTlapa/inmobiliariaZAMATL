@@ -183,15 +183,19 @@ class PropertyDAO {
     
 
     public function getPropertiesFromClientPreferences($client) {
-        $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno = ?";
-        $mysqli = $this->connection->getConnection();
-        $properties = array();
-    
         $preferredPrice = $client->getPreferredPrice();
         $preferredUbication = $client->getPreferredUbication();
         $preferredNumberRooms = $client->getPreferredNumberRooms();
         $preferredStatus = $client->getPreferredStatus();
         $groundMeasurements = $client->getGroundMeasurements();
+        if ($groundMeasurements == 80) {
+            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno >= ?";
+        } else {
+            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno <= ?";
+        }
+        $mysqli = $this->connection->getConnection();
+        $properties = array();
+    
     
         if ($statement = $mysqli->prepare($query)) {
             $statement->bind_param("isssd", $preferredPrice, $preferredUbication, $preferredNumberRooms, $preferredStatus, $groundMeasurements);

@@ -37,8 +37,8 @@
                 <aside>
                 <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre"  value="<?php echo $propertyLoaded->getName() ?>" required>
-                    <label for="descripcion">Descripcion</label>
-                    <input type="text" name="descripcion" id="descripcion" value="<?php echo $propertyLoaded->getDescription() ?>"  required>
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" required><?php echo $propertyLoaded->getDescription() ?></textarea>
                     <label for="ciudad">Ciudad</label>
                     <input type="text" name="ciudad" id="ciudad" value="<?php echo $propertyLoaded->getCity() ?>"  required>
                     <label for="calle">Calle</label>

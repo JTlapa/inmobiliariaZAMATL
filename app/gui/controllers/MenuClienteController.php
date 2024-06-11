@@ -29,7 +29,6 @@ $tamanios = $propertyDAO->getAllSizes();
 $maxPrice = $propertyDAO->getMaxPrice();
 $maxRooms = $propertyDAO->getMaxRooms();
 
-// Recuperar las propiedades según las preferencias del cliente
 $client = $clientDAO->getClienteById($_SESSION['userId']);
 if($client->getUserId() !== null) {
     $properties = $propertyDAO->getPropertiesFromClientPreferences($client);

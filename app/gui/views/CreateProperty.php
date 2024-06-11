@@ -36,7 +36,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre" required>
                     <label for="descripcion">Descripción</label>
-                    <input type="text" name="descripcion" id="descripcion" required>
+                    <textarea name="descripcion" id="descripcion" required></textarea>
                     <label for="ciudad">Ciudad</label>
                     <input type="text" name="ciudad" id="ciudad" required>
                     <label for="calle">Calle</label>
@@ -52,7 +52,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                     <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" value="1" max="15" step="1" required>
                     <span class="slider-value" id="sliderHabitacionesValue">1</span>
                     <label for="sliderPrecio">Precio</label>
-                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="1000" min="1000" max="5000000" step="100" required>
+                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="1000" min="1000" max="5000000" step="1000" required>
                     <span class="slider-value" id="sliderPrecioValue">$1000</span>
                     <div class="selects">
                     <label for="comboTipo">Tipo de inmueble</label>

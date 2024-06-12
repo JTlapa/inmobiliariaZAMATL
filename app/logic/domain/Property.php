@@ -114,13 +114,13 @@ class Property {
         $errors = null;
     
         // Validar city
-        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/', $this->city) || strlen($this->city) > 60) {
+        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s.]+$/', $this->city) || strlen($this->city) > 60) {
             $errors = "El nombre de la ciudad debe contener solo letras y no exceder los 60 caracteres.";
             return $errors;
         }
     
         // Validar street
-        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s]+$/', $this->street) || strlen($this->street) > 60) {
+        if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚüÜ\s.]+$/', $this->street) || strlen($this->street) > 60) {
             $errors = "El nombre de la calle debe contener solo letras y no exceder los 60 caracteres.";
             return $errors;
         }

@@ -1,13 +1,17 @@
 <?php
-    session_start();
-    if($_SESSION['typeUser'] != "Agente") {
-        header("Location: ./../.");
-    }
-    if (isset($_SESSION['error_message'])) {
-        echo '<script> alert("'.$_SESSION['error_message'].'"); </script>';
-        unset($_SESSION['error_message']);
-    }
-            
+session_start();
+if($_SESSION['typeUser'] != "Agente") {
+    header("Location: ./../.");
+}
+
+if (isset($_SESSION['error_message'])) {
+    echo '<script> alert("'.$_SESSION['error_message'].'"); </script>';
+    unset($_SESSION['error_message']);
+}
+
+$form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : array();
+unset($_SESSION['form_data']);
+
 require_once './../../dataaccess/Connection.php';
 require_once '../../logic/domain/User.php';
 require_once '../../logic/domain/Owner.php';
@@ -34,36 +38,36 @@ require_once '../../logic/DAO/OwnerDAO.php';
             <div class="form-content">
                 <aside>
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" id="nombre" required>
+                    <input type="text" name="nombre" id="nombre" value="<?php echo isset($form_data['nombre']) ? $form_data['nombre'] : ''; ?>" required>
                     <label for="descripcion">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" required></textarea>
+                    <textarea name="descripcion" id="descripcion" required><?php echo isset($form_data['descripcion']) ? $form_data['descripcion'] : ''; ?></textarea>
                     <label for="ciudad">Ciudad</label>
-                    <input type="text" name="ciudad" id="ciudad" required>
+                    <input type="text" name="ciudad" id="ciudad" value="<?php echo isset($form_data['ciudad']) ? $form_data['ciudad'] : ''; ?>" required>
                     <label for="calle">Calle</label>
-                    <input type="text" name="calle" id="calle" required>
+                    <input type="text" name="calle" id="calle" value="<?php echo isset($form_data['calle']) ? $form_data['calle'] : ''; ?>" required>
                     <label for="numero">Número</label>
-                    <input type="text" name="numero" id="numero" required>
+                    <input type="text" name="numero" id="numero" value="<?php echo isset($form_data['numero']) ? $form_data['numero'] : ''; ?>" required>
                 </aside>
                 <div class="derecha">
                     <label for="sliderTamanio">Tamaño</label>
-                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="10" max="200" step="5" required>
-                    <span class="slider-value" id="sliderTamanioValue">10m&sup2;</span>
+                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'] : '10'; ?>" max="200" step="5" required>
+                    <span class="slider-value" id="sliderTamanioValue"><?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'].'m&sup2;' : '10m&sup2;'; ?></span>
                     <label for="sliderHabitaciones">No. de Habitaciones</label>
-                    <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" value="1" max="15" step="1" required>
-                    <span class="slider-value" id="sliderHabitacionesValue">1</span>
+                    <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" value="<?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?>" max="15" step="1" required>
+                    <span class="slider-value" id="sliderHabitacionesValue"><?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?></span>
                     <label for="sliderPrecio">Precio</label>
-                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="1000" min="1000" max="5000000" step="1000" required>
-                    <span class="slider-value" id="sliderPrecioValue">$1000</span>
+                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?>" min="1000" max="5000000" step="1000" required>
+                    <span class="slider-value" id="sliderPrecioValue">$<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?></span>
                     <div class="selects">
-                    <label for="comboTipo">Tipo de inmueble</label>
+                        <label for="comboTipo">Tipo de inmueble</label>
                         <select name="comboTipo" id="comboTipo">
-                            <option value="" disabled selected>Selecciona un tipo</option>
-                            <option value="Compra">En venta</option>
-                            <option value="Renta">En renta</option>
+                            <option value="" disabled <?php echo !isset($form_data['comboTipo']) ? 'selected' : ''; ?>>Selecciona un tipo</option>
+                            <option value="Compra" <?php echo (isset($form_data['comboTipo']) && $form_data['comboTipo'] == 'Compra') ? 'selected' : ''; ?>>En venta</option>
+                            <option value="Renta" <?php echo (isset($form_data['comboTipo']) && $form_data['comboTipo'] == 'Renta') ? 'selected' : ''; ?>>En renta</option>
                         </select>
                         <label for="comboPropietario">Propietario</label>
                         <select name="comboPropietario" id="comboPropietario">
-                            <option value="" disabled selected>Selecciona un Propietario</option>
+                            <option value="" disabled <?php echo !isset($form_data['comboPropietario']) ? 'selected' : ''; ?>>Selecciona un Propietario</option>
                             <?php
                                 $connection = new Connection();
                                 $ownerDAO = new OwnerDAO($connection);
@@ -71,7 +75,8 @@ require_once '../../logic/DAO/OwnerDAO.php';
                                 foreach ($owners as $owner) {
                                     $name = $owner->getName();
                                     $idUser = $owner->getUserId();
-                                    echo "<option value='$idUser'>$name</option>";
+                                    $selected = (isset($form_data['comboPropietario']) && $form_data['comboPropietario'] == $idUser) ? 'selected' : '';
+                                    echo "<option value='$idUser' $selected>$name</option>";
                                 }
                             ?>
                         </select>

@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo = isset($_POST['comboTipo']) ? $_POST['comboTipo'] : null;
     $idPropietario = isset($_POST['comboPropietario']) ? (int)$_POST['comboPropietario'] : null;
 
-    
     $property = new Property();
     $property->setIdAgent((int)$_SESSION['userId']);
     $property->setIdOwner($idPropietario);
@@ -42,36 +41,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $property->setGroundMeasurements($tamanio);
 
     $errors = $property->validateData();
-    if($errors != null) {
-        $_SESSION['error_message'] = "'.$errors.'";
+    if ($errors != null) {
+        $_SESSION['form_data'] = $_POST;
+        $_SESSION['error_message'] = $errors;
         header("Location: ../views/CreateProperty.php");
         exit();
-    }
-    else {
+    } else {
         $result = $propertyDAO->insertProperty($property);
-        
-        if($result==1) {
+
+        if ($result == 1) {
             echo '<script>alert("Se ha registrado con éxito la propiedad '.$nombre.'");</script>';
             $_SESSION['error_message'] = "Se ha registrado con éxito la propiedad '.$nombre.'";
-            $mails = $userDAO->getEmailsToAlert($ciudad,$precio,$habitaciones);
-            
-            foreach($mails as $mail) {
+            $mails = $userDAO->getEmailsToAlert($ciudad, $precio, $habitaciones);
+
+            foreach ($mails as $mail) {
                 $to = $mail;
                 $subject = 'Nueva propiedad de tu interes';
-                $message = "<html><body><p>Se ha agregado una nueva propiedadde tu interes: </p>";
+                $message = "<html><body><p>Se ha agregado una nueva propiedad de tu interés: </p>";
                 $message .= "<p>Nombre: ".$property->getName()."</p>";
-                $message .= "<p>Descripcion: ".$property->getDescription()."</p>";
+                $message .= "<p>Descripción: ".$property->getDescription()."</p>";
                 $message .= "<p>Precio: ".$property->getPrice()."</p>";
-                $message .= "<p>Ubicacion: ".$property->getCity()."</p>";
+                $message .= "<p>Ubicación: ".$property->getCity()."</p>";
                 $message .= "<p>Estatus: ".$property->getStatus()."</p>";
-                $message .= "<p>Numero de habitaciones: ".$property->getNumberRooms()."</p>";
+                $message .= "<p>Número de habitaciones: ".$property->getNumberRooms()."</p>";
                 $message .= "</body></html>";
-                
+
                 $headers = "Content-type: text/html; charset=UTF-8\r\n";
                 $headers .= 'From: coillogs4@gmail.com' . "\r\n" .
                 'Reply-To: '.$mail. "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
-                
+
                 mail($to, $subject, $message, $headers);
             }
 
@@ -79,11 +78,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }
-        
 }
 ?>
-<html>
-    <body>
-        <p></p>
-    </body>
-</html>

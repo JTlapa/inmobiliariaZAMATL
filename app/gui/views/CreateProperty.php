@@ -84,7 +84,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                 </div>
             </div>
             <div class="buttons">
-                <button type="submit">Continuar</button>
+                <button type="submit">Guardar</button>
                 <button type="button" onclick="logOut()">Atrás</button>
             </div>
         </form>

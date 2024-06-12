@@ -32,11 +32,18 @@ if ($_SESSION['typeUser'] != "Cliente") {
         main form button {
             margin: 50px 0;
         }
+
+        h2 {
+            color: white;
+            font-size: 20px;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
     <main>
         <h1>Configuracion de alertas</h1>
+        <h2>Aquí puedes configurar si deseas recibir correos con las propiedades basadas en:</h2>
         <form action="./../controllers/AlertsController.php" method="post">
             <select name="alerta" id="alerta" required>
                 <option value="" disabled selected>Selecciona una opcion</option>

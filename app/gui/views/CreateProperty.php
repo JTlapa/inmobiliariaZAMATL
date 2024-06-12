@@ -120,12 +120,12 @@ require_once '../../logic/DAO/OwnerDAO.php';
             if (tipo === 'Compra') {
                 sliderPrecio.min = 10000;
                 sliderPrecio.max = 5000000;
-                sliderPrecio.step = 1000;
+                sliderPrecio.step = 100000;
                 sliderPrecio.value = 10000;
             } else if (tipo === 'Renta') {
                 sliderPrecio.min = 1000;
                 sliderPrecio.max = 50000;
-                sliderPrecio.step = 100;
+                sliderPrecio.step = 1000;
                 sliderPrecio.value = 1000;
             }
 

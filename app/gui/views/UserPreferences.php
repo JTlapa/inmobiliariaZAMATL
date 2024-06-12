@@ -35,7 +35,7 @@
                     ?>
                 </select>
                 <select name="comboTamanio" id="comboTamanio" required>
-                    <option value="" disabled selected>Selecciona un tamaño</option>
+                    <option value="" disabled selected>Selecciona un tamaño del terreno</option>
                     <option value="50">Menos de 50 m²</option>
                     <option value="75">Entre 51 y 75 m²</option>
                     <option value="80">Más de 80 m²</option>

@@ -45,7 +45,7 @@
             <option value="" disabled selected>Selecciona un tipo</option>
             <option value="Compra">Compra</option>
             <option value="Renta">Renta</option>
-            <option value="Ocupado">Ocupdo</option>
+            <option value="Ocupado">Ocupado</option>
         </select>
         <button type="submit">Guardar</button>
     </form>

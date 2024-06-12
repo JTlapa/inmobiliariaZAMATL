@@ -68,9 +68,9 @@
                     </select>
                     <select name="comboTamanio" id="comboTamanio">
                         <option value="" disabled selected>Selecciona un tamaño</option>
-                        <option value="50">Menos de 50 m²</option>
-                        <option value="75">Menos de 75 m²</option>
-                        <option value="80">Más de 80 m²</option>
+                        <option value="100">Menos de 100 m²</option>
+                        <option value="150">Menos de 150 m²</option>
+                        <option value="151">Más de 150 m²</option>
                     </select>
                 </nav>
                 <button type="submit">Buscar</button>

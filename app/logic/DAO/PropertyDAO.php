@@ -138,7 +138,7 @@ class PropertyDAO {
         $estatus = $search->getSearchType();
         $tamanio = $search->getTerrainMeasurement();
         
-        if ($tamanio == 80) {
+        if ($tamanio == 151) {
             $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno >= ?";
         } else {
             $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno <= ?";
@@ -188,7 +188,7 @@ class PropertyDAO {
         $preferredNumberRooms = $client->getPreferredNumberRooms();
         $preferredStatus = $client->getPreferredStatus();
         $groundMeasurements = $client->getGroundMeasurements();
-        if ($groundMeasurements == 80) {
+        if ($groundMeasurements == 151) {
             $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno >= ?";
         } else {
             $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno <= ?";

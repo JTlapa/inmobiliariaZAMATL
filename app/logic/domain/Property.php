@@ -138,8 +138,8 @@ class Property {
         }
     
         // Validar description
-        if (strlen($this->description) > 60) {
-            $errors = "La descripción de la propiedad no debe exceder los 60 caracteres.";
+        if (strlen($this->description) > 200) {
+            $errors = "La descripción de la propiedad no debe exceder los 200 caracteres.";
             return $errors;
         }
         $connection = new Connection();

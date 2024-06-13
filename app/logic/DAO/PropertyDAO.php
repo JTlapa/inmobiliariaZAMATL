@@ -391,7 +391,29 @@ class PropertyDAO {
         return $resultado;
     }
 
+    public function getStatus($idProperty) {
+        $query = "SELECT estatus FROM Propiedad WHERE idPropiedad = ?";
+        $mysqli = $this->connection->getConnection();
+        $status = null;
     
+        if ($statement = $mysqli->prepare($query)) {
+            $statement->bind_param("i", $idProperty);
+            $statement->execute();
+            $result = $statement->get_result();
+    
+            while ($row = $result->fetch_assoc()) {
+                $status = $row['estatus'];
+            }
+    
+            $statement->close();
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $status;
+    }
 }
 
 ?>

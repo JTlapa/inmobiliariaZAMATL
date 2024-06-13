@@ -16,6 +16,7 @@
 
     $result = $propertyDAO->updateStatus($newStatus, $idProperty);
     if($result == 1) {
+        $_SESSION['error_message'] = "Se han guardado los cambios con éxito";
         header('Location: ./../views/MenuPrincipalAgente.php');
     }
 ?>

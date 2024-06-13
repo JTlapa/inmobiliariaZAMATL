@@ -61,7 +61,7 @@ require_once '../../logic/DAO/PropertyDAO.php';
     </main>
     <script>
         function logOut(){
-            window.location.href = '../.';
+            window.location.href = '../controllers/logout.php';
         }
         function newProperty() {
             window.location.href = 'CreateProperty.php';

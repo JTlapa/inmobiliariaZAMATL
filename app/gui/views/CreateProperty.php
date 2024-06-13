@@ -50,13 +50,13 @@ require_once '../../logic/DAO/OwnerDAO.php';
                 </aside>
                 <div class="derecha">
                     <label for="sliderTamanio">Tamaño</label>
-                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'] : '10'; ?>" max="200" step="5" required>
+                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'] : '10'; ?>" max="100000" step="100" required>
                     <span class="slider-value" id="sliderTamanioValue"><?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'].'m&sup2;' : '10m&sup2;'; ?></span>
                     <label for="sliderHabitaciones">No. de Habitaciones</label>
                     <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" value="<?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?>" max="15" step="1" required>
                     <span class="slider-value" id="sliderHabitacionesValue"><?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?></span>
                     <label for="sliderPrecio">Precio</label>
-                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?>" min="1000" max="5000000" step="1000" required>
+                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?>" min="1000" max="50000000" step="1000" required>
                     <span class="slider-value" id="sliderPrecioValue">$<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?></span>
                     <div class="selects">
                         <label for="comboTipo">Tipo de inmueble</label>

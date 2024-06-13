@@ -53,7 +53,7 @@ button {
     width: 150px;
     color: white;
     cursor: pointer;
-    margin: 0 150px 0 0;
+    margin: 0 150px 0;
     border-radius: 10px;
     transition: 400ms;
 }

@@ -47,15 +47,9 @@
                     <input type="text" name="numero" id="numero"  value="<?php echo $propertyLoaded->getNumber() ?>" required>
                 </aside>
                 <div class="derecha">
-                <label for="sliderTamanio">Tamaño</label>
-                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo $propertyLoaded->getGroundMeasurements()?>" max="200" step="5" required>
-                    <span class="slider-value" id="sliderTamanioValue"><?php echo $propertyLoaded->getGroundMeasurements()?>m&sup2;</span>
                     <label for="sliderHabitaciones">No. de Habitaciones</label>
                     <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" max="15" step="1" value="<?php echo $propertyLoaded->getNumberRooms() ?>" required>
                     <span class="slider-value" id="sliderHabitacionesValue"><?php echo $propertyLoaded->getNumberRooms() ?></span>
-                    <label for="sliderPrecio">Precio</label>
-                    <input type="range" name="sliderPrecio" id="sliderPrecio"  min="1000" max="5000000" value="<?php echo $propertyLoaded->getPrice() ?>" step="100" required>
-                    <span class="slider-value" id="sliderPrecioValue">$<?php echo $propertyLoaded->getPrice() ?></span>
                 </div>
             </div>
             <div class="buttons">

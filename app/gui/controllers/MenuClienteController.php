@@ -26,7 +26,8 @@ $clientDAO = new ClientDAO($connection);
 $ubicaciones = $propertyDAO->getAllUbications();
 $tamanios = $propertyDAO->getAllSizes();
 
-$maxPrice = $propertyDAO->getMaxPrice();
+$maxSellPrice = $propertyDAO->getSellMaxPrice();
+$maxRentalPrice = $propertyDAO->getRentalMaxPrice();
 $maxRooms = $propertyDAO->getMaxRooms();
 
 $client = $clientDAO->getClienteById($_SESSION['userId']);
@@ -35,7 +36,7 @@ if($client->getUserId() !== null) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $precio = isset($_POST['sliderPrice']) ? $_POST['sliderPrice'] : null;
+    $precio = isset($_POST['priceRange']) ? $_POST['priceRange'] : null;
     $habitaciones = isset($_POST['sliderRooms']) ? $_POST['sliderRooms'] : null;
     $ubicacion = isset($_POST['comboUbicacion']) ? $_POST['comboUbicacion'] : null;
     $tamanio = isset($_POST['comboTamanio']) ? $_POST['comboTamanio'] : null;
@@ -69,4 +70,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 ?>
-

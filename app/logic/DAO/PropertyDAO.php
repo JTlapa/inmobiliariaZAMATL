@@ -133,22 +133,59 @@ class PropertyDAO {
 
     public function getPropertiesFromSearchCriteria($search) {
         $precio = $search->getPrice();
+    
+        if (strpos($precio, ' - ') !== false) {
+            list($precioMin, $precioMax) = explode(' - ', $precio);
+            $precioMin = str_replace('$', '', $precioMin);
+            $precioMax = str_replace('$', '', $precioMax);
+            $precioMin = floatval($precioMin);
+            $precioMax = floatval($precioMax);
+        } else {
+            $precioMin = str_replace(['$', ' o más'], '', $precio);
+            $precioMin = floatval($precioMin);
+            $precioMax = null;
+        }
+    
         $ubicacion = $search->getUbication();
         $numHabitaciones = $search->getNumberRooms();
         $estatus = $search->getSearchType();
         $tamanio = $search->getTerrainMeasurement();
-        
-        if ($tamanio == 151) {
-            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno >= ?";
+    
+        if ($precioMax !== null) {
+            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND precio >= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
+            $params = [$precioMax, $precioMin, $ubicacion, $numHabitaciones, $estatus];
+            $paramTypes = "ddsss";
         } else {
-            $query = "SELECT * FROM Propiedad WHERE precio <= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ? AND medidasTerreno <= ?";
+            $query = "SELECT * FROM Propiedad WHERE precio >= ? AND ciudad = ? AND numHabitaciones <= ? AND estatus = ?";
+            $params = [$precioMin, $ubicacion, $numHabitaciones, $estatus];
+            $paramTypes = "dsss";
         }
-        
+    
+        if (strpos($tamanio, ' - ') !== false) {
+            list($tamanioMin, $tamanioMax) = explode(' - ', $tamanio);
+            $tamanioMin = floatval($tamanioMin);
+            $tamanioMax = floatval($tamanioMax);
+            $query .= " AND medidasTerreno >= ? AND medidasTerreno <= ?";
+            $params[] = $tamanioMin;
+            $params[] = $tamanioMax;
+            $paramTypes .= "dd";
+        } else {
+            $tamanio = floatval($tamanio);
+            if ($tamanio == 10000) {
+                $query .= " AND medidasTerreno >= ?";
+            } else {
+                $query .= " AND medidasTerreno <= ?";
+            }
+            $params[] = $tamanio;
+            $paramTypes .= "d";
+        }
+    
         $mysqli = $this->connection->getConnection();
         $properties = array();
     
         if ($statement = $mysqli->prepare($query)) {
-            $statement->bind_param("dsssd", $precio, $ubicacion, $numHabitaciones, $estatus, $tamanio);
+            $statement->bind_param($paramTypes, ...$params);
+    
             $statement->execute();
             $result = $statement->get_result();
     
@@ -179,7 +216,6 @@ class PropertyDAO {
     
         return $properties;
     }
-    
     
 
     public function getPropertiesFromClientPreferences($client) {
@@ -267,8 +303,26 @@ class PropertyDAO {
         return $properties;
     }
 
-    public function getMaxPrice() {
-        $query = "SELECT MAX(precio) AS max_price FROM Propiedad";
+    public function getSellMaxPrice() {
+        $query = "SELECT MAX(precio) AS max_price FROM Propiedad WHERE estatus = 'Compra'";
+        $mysqli = $this->connection->getConnection();
+        $maxPrice = 0;
+    
+        if ($result = $mysqli->query($query)) {
+            if ($row = $result->fetch_assoc()) {
+                $maxPrice = $row['max_price'];
+            }
+        } else {
+            echo "Error: " . $mysqli->error;
+        }
+    
+        $mysqli->close();
+    
+        return $maxPrice;
+    }
+
+    public function getRentalMaxPrice() {
+        $query = "SELECT MAX(precio) AS max_price FROM Propiedad WHERE estatus = 'Renta'";
         $mysqli = $this->connection->getConnection();
         $maxPrice = 0;
     

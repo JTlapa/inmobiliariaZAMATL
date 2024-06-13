@@ -10,7 +10,7 @@ class   Connection {
     public function __construct() {
         $this->host = "localhost";
         $this->user = "root";
-        $this->password = "Agosto#_110821";
+        $this->password = "Posdata19";
         $this->database = "inmobiliariaZAMATL";
     }
 

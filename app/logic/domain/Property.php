@@ -152,6 +152,17 @@ class Property {
             $errors = "La ubicación de la propiedad ya está ocupada por otra.";
             return $errors;
         }
+        // Validar price
+        if ($this->price <= 1000) {
+            $errors = "El precio de la propiedad debe ser mayor a 1000.";
+            return $errors;
+        }
+        
+        // Validar groundMeasurements
+        if ($this->groundMeasurements <= 30) {
+            $errors = "Las medidas del terreno deben ser mayores a 30.";
+            return $errors;
+        }
     
         return $errors;
     }

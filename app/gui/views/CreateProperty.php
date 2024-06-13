@@ -27,6 +27,14 @@ require_once '../../logic/DAO/OwnerDAO.php';
     <link rel="stylesheet" href="../styles/style-ranges.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <title>Registrar Propiedad</title>
+    <style>
+        
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -35,7 +43,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
     </header>
     <main>
         <form action="../controllers/CreatePropertyController.php" method="post">
-            <div class="form-content">
+            <div id="propertyData" class="form-content">
                 <aside>
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre" value="<?php echo isset($form_data['nombre']) ? $form_data['nombre'] : ''; ?>" required>
@@ -49,15 +57,13 @@ require_once '../../logic/DAO/OwnerDAO.php';
                     <input type="text" name="numero" id="numero" value="<?php echo isset($form_data['numero']) ? $form_data['numero'] : ''; ?>" required>
                 </aside>
                 <div class="derecha">
-                    <label for="sliderTamanio">Tamaño</label>
-                    <input type="range" name="sliderTamanio" id="sliderTamanio" min="10" value="<?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'] : '10'; ?>" max="100000" step="100" required>
-                    <span class="slider-value" id="sliderTamanioValue"><?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio'].'m&sup2;' : '10m&sup2;'; ?></span>
+                    <label for="sliderTamanio">Tamaño(m&sup2;)</label>
+                    <input type="text" name="sliderTamanio" id="sliderTamanio" value="<?php echo isset($form_data['sliderTamanio']) ? $form_data['sliderTamanio']:null; ?>"  required>
                     <label for="sliderHabitaciones">No. de Habitaciones</label>
                     <input type="range" name="sliderHabitaciones" id="sliderHabitaciones" min="1" value="<?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?>" max="15" step="1" required>
                     <span class="slider-value" id="sliderHabitacionesValue"><?php echo isset($form_data['sliderHabitaciones']) ? $form_data['sliderHabitaciones'] : '1'; ?></span>
-                    <label for="sliderPrecio">Precio</label>
-                    <input type="range" name="sliderPrecio" id="sliderPrecio" value="<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?>" min="1000" max="50000000" step="1000" required>
-                    <span class="slider-value" id="sliderPrecioValue">$<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : '1000'; ?></span>
+                    <label style="margin-top: 35px;" for="sliderPrecio">Precio($)</label>
+                    <input type="text" name="sliderPrecio" id="sliderPrecio" value="<?php echo isset($form_data['sliderPrecio']) ? $form_data['sliderPrecio'] : null; ?>" step="1000" required>
                     <div class="selects">
                         <label for="comboTipo">Tipo de inmueble</label>
                         <select name="comboTipo" id="comboTipo">
@@ -83,6 +89,7 @@ require_once '../../logic/DAO/OwnerDAO.php';
                     </div>
                 </div>
             </div>
+            <div class="error-message" id="errorMessage"></div>
             <div class="buttons">
                 <button type="submit">Guardar</button>
                 <button type="button" onclick="logOut()">Atrás</button>
@@ -112,25 +119,31 @@ require_once '../../logic/DAO/OwnerDAO.php';
             sliderHabitacionesValue.textContent = this.value;
         };
 
-        document.getElementById('comboTipo').addEventListener('change', function() {
-            var tipo = this.value;
-            var sliderPrecio = document.getElementById('sliderPrecio');
-            var sliderPrecioValue = document.getElementById('sliderPrecioValue');
+        document.getElementById('sliderTamanio').addEventListener('input', function(e) {
+        const input = e.target;
+        input.value = input.value
+            .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
+            .replace(/(\..*?)\..*/g, '$1') // Allow only one dot
+            .replace(/^0+(\d)/, '$1'); // Remove leading zeros
 
-            if (tipo === 'Compra') {
-                sliderPrecio.min = 10000;
-                sliderPrecio.max = 5000000;
-                sliderPrecio.step = 100000;
-                sliderPrecio.value = 10000;
-            } else if (tipo === 'Renta') {
-                sliderPrecio.min = 1000;
-                sliderPrecio.max = 50000;
-                sliderPrecio.step = 1000;
-                sliderPrecio.value = 1000;
-            }
+        const parts = input.value.split('.');
+        if (parts.length > 1 && parts[1].length > 2) {
+            input.value = parts[0] + '.' + parts[1].slice(0, 2);
+        }
+    });
+        document.getElementById('sliderPrecio').addEventListener('input', function(e) {
+        const input = e.target;
+        input.value = input.value
+            .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
+            .replace(/(\..*?)\..*/g, '$1') // Allow only one dot
+            .replace(/^0+(\d)/, '$1'); // Remove leading zeros
 
-            sliderPrecioValue.textContent = `$${sliderPrecio.value}`;
-        });
+        const parts = input.value.split('.');
+        if (parts.length > 1 && parts[1].length > 2) {
+            input.value = parts[0] + '.' + parts[1].slice(0, 2);
+        }
+    });
+
     </script>
 </body>
 </html>
